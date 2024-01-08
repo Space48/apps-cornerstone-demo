@@ -9,10 +9,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: demo.space48apps.com
+      url: https://demo.space48apps.com
 
     strategy:
       matrix:
-        node: [16.x]
+        node: [18.x]
 
     steps:
     - name: Checkout code
@@ -45,7 +48,7 @@ jobs:
 
     - name: Connect to store
       env:
-        URL: ${{ secrets.STENCIL_STORE_URL_PRODUCTION }}
+        URL: ${{ vars.STENCIL_STORE_URL_PRODUCTION }}
         TOKEN: ${{ secrets.STENCIL_ACCESS_TOKEN_PRODUCTION }}
       run: stencil init -u $URL -t $TOKEN -p 3000 -h https://api.bigcommerce.com
 
