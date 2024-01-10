@@ -1,26 +1,72 @@
+{{assignVar "hasSizeGuide" 0}}
+{{#each metafields.edges }}
+    {{#if node.key "===" "size-guide"}}
+        {{assignVar "hasSizeGuide" 1}}
+    {{/if}}
+{{/each}}
+
+{{#filter metafields.edges "size-guide" property="node.key"}}
+    {{assignVar "hasSizeGuide" 1}}
+{{/filter}}
+
 <ul class="tabs" data-tab role="tablist">
     {{#if product.related_products}}
         <li class="tab is-active" role="presentation">
-            <a class="tab-title" href="#tab-related" role="tab" tabindex="0" aria-selected="true" controls="tab-related">{{lang 'products.related_products'}}</a>
+            <a class="tab-title" href="#tab-related" role="tab" tabindex="0" aria-selected="true"
+               controls="tab-related">{{lang 'products.related_products'}}</a>
         </li>
     {{/if}}
     {{#if product.similar_by_views}}
         <li class="tab{{#unless product.related_products}} is-active{{/unless}}" role="presentation">
-            <a class="tab-title" href="#tab-similar" role="tab" tabindex="0" aria-selected="{{#if product.related_products}}false{{else}}true{{/if}}" controls="tab-similar">{{lang 'products.similar_by_views'}}</a>
+            <a class="tab-title" href="#tab-similar" role="tab" tabindex="0"
+               aria-selected="{{#if product.related_products}}false{{else}}true{{/if}}" controls="tab-similar">{{lang
+                    'products.similar_by_views'}}</a>
+        </li>
+    {{/if}}
+    <!-- new size guide tab -->
+    {{#if (getVar "hasSizeGuide") "===" 1}}
+        <li class="tab {{#neither product.related_products product.similar_by_views}} is-active{{/neither}}"
+            role="presentation">
+            <a class="tab-title" href="#tab-size-guide" role="tab" tabindex="0"
+                aria-selected="{{#or product.related_products product.similar_by_views}}false{{else}}true{{/or}}" controls="tab-size-guide">
+            Size guide
+            </a>
         </li>
     {{/if}}
 </ul>
 
 <div class="tabs-contents">
-{{#if product.related_products}}
-    <div role="tabpanel" aria-hidden="false" class="tab-content has-jsContent is-active" id="tab-related">
-        {{> components/products/carousel products=product.related_products columns=6 list="Related Products"}}
-    </div>
-{{/if}}
+    {{#if product.related_products}}
+        <div role="tabpanel" aria-hidden="false" class="tab-content has-jsContent is-active" id="tab-related">
+            {{> components/products/carousel products=product.related_products columns=6 list="Related Products"}}
+        </div>
+    {{/if}}
 
-{{#if product.similar_by_views}}
-    <div role="tabpanel" aria-hidden="{{#if product.related_products}}true{{else}}false{{/if}}" class="tab-content has-jsContent{{#unless product.related_products}} is-active{{/unless}}" id="tab-similar">
-        {{> components/products/carousel products=product.similar_by_views columns=6 list="Customers Also Viewed"}}
-    </div>
-{{/if}}
+    {{#if product.similar_by_views}}
+        <div role="tabpanel" aria-hidden="{{#if product.related_products}}true{{else}}false{{/if}}"
+             class="tab-content has-jsContent{{#unless product.related_products}} is-active{{/unless}}"
+             id="tab-similar">
+            {{> components/products/carousel products=product.similar_by_views columns=6 list="Customers Also Viewed"}}
+        </div>
+    {{/if}}
+
+    <!-- new size guide tab content-->
+    {{#if (getVar "hasSizeGuide") "===" 1}}
+        <div role="tabpanel" aria-hidden="{{#or product.related_products product.similar_by_views}}true{{else}}false{{/or}}"
+             class="tab-content{{#neither product.related_products product.similar_by_views}} is-active{{/neither}}" id="tab-size-guide"
+        >
+
+            {{#filter metafields.edges "size-guide" property="node.key"}}
+                {{#JSONparse node.value}}
+                    {{#withFirst this}}
+                        <h4>{{heading}}</h4>
+                        <div class="size-guide">
+                            {{{details}}}
+                        </div>
+                    {{/withFirst}}
+                {{/JSONparse }}
+            {{/filter}}
+
+        </div>
+    {{/if}}
 </div>

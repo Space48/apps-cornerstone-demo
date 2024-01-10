@@ -8,6 +8,22 @@ product:
         limit: {{theme_settings.productpage_related_products_count}}
     similar_by_views:
         limit: {{theme_settings.productpage_similar_by_views_count}}
+gql: "query productById($productId: Int!) {
+  site {
+    product(entityId: $productId) {
+      metafields(namespace: \"shared\", keys: [\"size-guide\"]) {
+        edges {
+          node {
+            id
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+}
+"
 ---
 {{inject 'productId' product.id}}
 
@@ -19,10 +35,14 @@ product:
         {{> components/common/alert/alert-info message}}
     {{/each}}
 
+
+
     <div>
         {{> components/products/product-view}}
 
         {{{region name="product_below_content"}}}
+
+
 
         {{#if product.videos.list.length}}
             {{> components/products/videos product.videos}}
@@ -32,7 +52,19 @@ product:
             {{> components/products/reviews reviews=product.reviews product=product urls=urls}}
         {{/all}}
 
-        {{> components/products/tabs}}
+        {{> components/products/tabs metafields=gql.data.site.product.metafields.edges }}
+
+        {{#each gql.data.site.product.metafields.edges }}
+            {{#if node.key '===' 'size-guide'}}
+                {{#JSONparse node.value}}
+                    {{#withFirst .}}
+                        <h4>{{heading}}</h4>
+                        {{{details}}}
+                    {{/withFirst}}
+                {{/JSONparse}}
+            {{/if}}
+        {{/each}}
+
     </div>
 
     {{> components/products/schema}}
