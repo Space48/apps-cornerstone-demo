@@ -1,10 +1,4 @@
 {{assignVar "hasSizeGuide" 0}}
-{{#each metafields.edges }}
-    {{#if node.key "===" "size-guide"}}
-        {{assignVar "hasSizeGuide" 1}}
-    {{/if}}
-{{/each}}
-
 {{#filter metafields.edges "size-guide" property="node.key"}}
     {{assignVar "hasSizeGuide" 1}}
 {{/filter}}
