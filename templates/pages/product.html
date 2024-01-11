@@ -35,8 +35,6 @@ gql: "query productById($productId: Int!) {
         {{> components/common/alert/alert-info message}}
     {{/each}}
 
-
-
     <div>
         {{> components/products/product-view}}
 
@@ -52,18 +50,7 @@ gql: "query productById($productId: Int!) {
             {{> components/products/reviews reviews=product.reviews product=product urls=urls}}
         {{/all}}
 
-        {{> components/products/tabs metafields=gql.data.site.product.metafields.edges }}
-
-        {{#each gql.data.site.product.metafields.edges }}
-            {{#if node.key '===' 'size-guide'}}
-                {{#JSONparse node.value}}
-                    {{#withFirst .}}
-                        <h4>{{heading}}</h4>
-                        {{{details}}}
-                    {{/withFirst}}
-                {{/JSONparse}}
-            {{/if}}
-        {{/each}}
+        {{> components/products/tabs metafields=gql.data.site.product.metafields }}
 
     </div>
 
