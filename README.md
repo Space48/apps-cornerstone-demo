@@ -51,6 +51,11 @@ Hyper Search and products with and without size guides against the demo store
 before merging; a successful bundle cannot verify the external app or live
 metafield data.
 
+Size guides render server-side using BigCommerce's `JSONparseSafe` helper.
+Malformed JSON omits the guide tab and adds a diagnostic HTML comment rather
+than breaking the product page. Correct the data through the size-guide app
+to restore the guide; do not try to repair malformed JSON in the template.
+
 Make future demo changes on the latest patch branch (or a feature branch based
 on it), then merge them into `master` through a PR. Keep Page Builder
 configuration-sync changes on the patch branch too, so the next rebase retains
