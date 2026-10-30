@@ -18,6 +18,13 @@
                     {{#if value.value}}
                         <dt class="account-orderTotal-key">{{label}}:</dt>
                         <dd class="account-orderTotal-value">{{value.formatted}}</dd>
+                        {{#if shipping_discounts}}
+                            <dl>
+                                {{#each shipping_discounts}}
+                                    <dt class="account-orderTotal-discount">{{label}}</dt>
+                                {{/each}}
+                            </dl>
+                        {{/if}}
                     {{/if}}
                 {{/each}}
             </dl>
@@ -62,12 +69,15 @@
                         <li>{{{ sanitize order.shipping_address.city}}}, {{{ sanitize order.shipping_address.state}}} {{{ sanitize order.shipping_address.zip}}}</li>
                         <li>{{{ sanitize order.shipping_address.country}}}</li>
                     </ul>
+                    {{#if order.backorder_shipping_expectation_message}}
+                        <p class="account-order-backorder-expectation">{{order.backorder_shipping_expectation_message}}</p>
+                    {{/if}}
                 </section>
             {{/if}}
-            {{#if order.pickup_address}}
+            {{#if order.pickup_addresses}}
             <section class="account-sidebar-block">
                 <h3 class="account-heading">{{lang 'account.orders.details.pickup'}}</h3>
-                {{#each order.pickup_address}}
+                {{#each order.pickup_addresses}}
                 <dl class="definitionList">
                     <dt class="definitionList-key">{{lang 'account.orders.details.pickup_method'}}</dt>
                     <dd class="definitionList-value">{{sanitize pickup_method_display_name}}</dd>
@@ -86,7 +96,7 @@
                     <dt class="definitionList-key">{{lang 'account.orders.details.phone'}}</dt>
                     <dd class="definitionList-value">{{{ sanitize location_phone}}}</dd>
                     {{/if}}
-                    {{#if order.pickup_address.location_email}}
+                    {{#if location_email}}
                     <dt class="definitionList-key">{{lang 'account.orders.details.email'}}</dt>
                     <dd class="definitionList-value">{{{ sanitize location_email}}}</dd>
                     {{/if}}
@@ -105,6 +115,9 @@
                         <div class="account-order-address">
                             {{lang 'account.orders.details.ship_to_multi_text'}}
                         </div>
+                        {{#if order.backorder_shipping_expectation_message}}
+                            <p class="account-order-backorder-expectation">{{order.backorder_shipping_expectation_message}}</p>
+                        {{/if}}
                     </section>
                 {{/if}}
             {{/if}}

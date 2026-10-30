@@ -1,6 +1,12 @@
 {{assignVar "hasSizeGuide" 0}}
 {{#filter metafields.edges "size-guide" property="node.key"}}
-    {{assignVar "hasSizeGuide" 1}}
+    {{#JSONparseSafe node.value}}
+        {{#withFirst this}}
+            {{assignVar "hasSizeGuide" 1}}
+        {{/withFirst}}
+    {{else}}
+        <!-- Size guide omitted: shared.size-guide contains invalid JSON. -->
+    {{/JSONparseSafe}}
 {{/filter}}
 
 <ul class="tabs" data-tab role="tablist">
@@ -51,14 +57,14 @@
         >
 
             {{#filter metafields.edges "size-guide" property="node.key"}}
-                {{#JSONparse node.value}}
+                {{#JSONparseSafe node.value}}
                     {{#withFirst this}}
                         <h4>{{heading}}</h4>
                         <div class="size-guide">
                             {{{details}}}
                         </div>
                     {{/withFirst}}
-                {{/JSONparse }}
+                {{/JSONparseSafe}}
             {{/filter}}
 
         </div>

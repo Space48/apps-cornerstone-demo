@@ -59,7 +59,9 @@
             "shipping": "Versand",
             "grand_total": "Gesamtsumme",
             "select": "Auswählen",
-            "update": "Versandkosten aktualisieren"
+            "update": "Versandkosten aktualisieren",
+            "you_saved": "Sie haben gespart",
+            "in_total": "Insgesamt!"
         },
         "preview": {
             "checkout_now": "Jetzt Bezahlvorgang abschließen",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] ist keine gültige Eingabe",
         "coupon_code": "Gutschein-Code",
         "discount": "Rabatt",
+        "discounts": "Rabatte",
+        "manual_discount": "Manueller Preisnachlass",
+        "automatic_discount": "Automatischer Rabatt",
         "included_in_total": " Im Gesamtbetrag enthalten",
         "remove_file": "Diese Datei entfernen",
         "freeshipping": "Kostenloser Versand",
@@ -79,6 +84,8 @@
         "remove_item": "{name} aus dem Warenkorb entfernen",
         "confirm_delete": "Möchten Sie diesen Artikel wirklich löschen?",
         "coupons": {
+            "apply_coupon": "Coupon anwenden",
+            "apply_coupon_code": "Coupon-Code anwenden",
             "empty_error": "Bitte geben Sie Ihren Gutscheincode ein.",
             "cancel": "Abbrechen",
             "add_code": "Code hinzufügen",
@@ -86,9 +93,11 @@
             "button": "Anwenden",
             "coupon_code": "Geben Sie Ihren Gutscheincode ein",
             "code_label": "Gutschein ({code})",
-            "remove": "Entfernen"
+            "remove": "Entfernen",
+            "maximum_discount_applied": "Maximaler Rabatt angewendet"
         },
         "gift_certificates": {
+            "apply_gift_certificate": "Geschenkgutschein anwenden",
             "change_gift_certificate": "{certificate_name} ändern",
             "add_cert_code": "Geschenkgutschein hinzufügen",
             "gift_certificate": "Geschenkgutschein",
@@ -139,8 +148,12 @@
         "store_credit": "Sie haben ein Shop-Guthaben von <strong>{store_credit}</strong>. Wenn Sie das Guthaben verwenden möchten, geben Sie einfach eine Bestellung auf. Sie können dann bei der Bezahlung das Shop-Guthaben als Zahlungsmethode auswählen.",
         "store_credit_overview": "Shop-Guthaben von {credit}",
         "generic_error": "Hoppla! Es ist etwas schiefgegangen.",
-        "currency": "Währung auswählen: {code}",
+        "currency": "Währung: {code}",
         "currency_switch_promotion": "Werbeangebote und Geschenkgutscheine, die nicht für die neue Währung gelten, werden aus Ihrem Warenkorb entfernt. Möchten Sie wirklich fortfahren?",
+        "channel": "Filiale: {code}",
+        "channel_switch_warning": "Warntext für Filialwechsel",
+        "locale_switch_warning": "Warntext für Sprachwechsel",
+        "locale": "Sprache:",
         "newsletter_signup": "Registrieren Sie sich für unseren Newsletter",
         "form_submit": "Einreichen",
         "no_preference": "Keine Präferenzen",
@@ -179,6 +192,7 @@
         "paginator": {
             "page_of": "Seite {current} von {total}"
         },
+        "pagination": "Seitennummerierung",
         "prices_are_in": "Preise in {CODE}",
         "previous": "Zurück",
         "next": "Weiter",
@@ -223,6 +237,7 @@
     },
     "category": {
         "label": "Kategorien",
+        "product_label": "Gefilterte Produkte",
         "shop_by_price": "Nach Preis filtern",
         "shop_by_price_range_aria": "Preisspanne von {from} bis {to}",
         "filter_price_range": "Preisspanne:",
@@ -345,7 +360,7 @@
                 "heading": "Bestellung #{number}",
                 "order_contents": "Inhalte der Bestellung",
                 "ship_to": "Versand nach",
-                "ship_to_multi": "An {street}, {city}, {state}, {zip}, {country} versandte Artikel",
+                "ship_to_multi": "Versand an: {street}, {city}, {state}, {zip}, {country}",
                 "ship_to_multi_text": "Die Bestellung wird an mehrere Adressen versandt",
                 "pickup_details": "Abholungsdetails",
                 "bill_to": "Rechnung an",
@@ -398,6 +413,7 @@
             "credit_card_number": "Kreditkartennummer",
             "expiration": "Ablaufdatum",
             "cvv": "CVV",
+            "payment_icons_label": "Zahlungs-Symbole",
             "card_types": {
                 "american_express": "American Express",
                 "credit_card": "Kreditkarte",
@@ -411,6 +427,7 @@
                 "visa": "Visa"
             },
             "ach": "ACH",
+            "sepa_direct_debit": "SEPA-Lastschriftverfahren",
             "paypal": "PayPal",
             "billing_address_labels": {
                 "address_line_1": "Adresszeile 1",
@@ -701,16 +718,20 @@
             "reviews": {
                 "rating": "Das Feld „Bewertung“ darf nicht leer sein.",
                 "title": "Das Feld „Thema der Bewertung“ darf nicht leer sein.",
+                "name": "Das Feld „Name“ darf nicht leer sein.",
                 "comment": "Das Feld „Kommentare“ darf nicht leer sein."
             }
         }
     },
     "products": {
         "current_stock": "Aktueller Lagerbestand:",
+        "in_stock": "Auf Lager",
         "quantity": "Menge:",
         "change_product_options": "Optionen für {name} ändern",
         "quantity_decrease": "Menge von {name} verringern",
         "quantity_increase": "Menge von {name} erhöhen",
+        "quantity_backordered": "{quantity} werden nachbestellt",
+        "quantity_on_hand": "{quantity} bereit zum Versand",
         "quantity_error_message": "Die Anzahl sollte nur Zahlen enthalten",
         "purchase_units": "{quantity, plural, =0{0 Einheiten} one {# Einheit} other {# Einheiten}}",
         "max_purchase_quantity": "Höchstkaufwert:",
@@ -798,6 +819,7 @@
         "gift_wrapping_available": "Optionen verfügbar",
         "quantity_min": "Die Mindestabnahmemenge ist {quantity}",
         "quantity_max": "Die maximale Abnahmemenge ist {quantity}",
+        "quantity_max_picklist": "Die Höchstabnahmemenge für {name} beträgt {quantity}",
         "bulk_pricing": {
             "title": "Mengenrabatt:",
             "view": "Großeinkauf machen und sparen",
@@ -806,9 +828,16 @@
             "range": "{min} {max, plural, =0{oder höher} other {- #}}",
             "percent": "und erhalten Sie {discount} Rabatt",
             "price": "und erhalten Sie {discount} Rabatt",
-            "fixed": "und zahlen Sie jeweils nur {discount}"
+            "fixed": "und zahlen Sie jeweils nur {discount}",
+            "fixed_both": {
+                "prefix": "und zahlen Sie nur",
+                "suffix": "Jede(s/r)"
+            }
         },
-        "card_default_image_alt": "Bild in Kürze verfügbar"
+        "card_default_image_alt": "Bild in Kürze verfügbar",
+        "featured_promotions": {
+            "more_offers": "{count, plural, one {weiteres Angebot} other {weitere Angebote}}"
+        }
     },
     "invoice": {
         "for_order": "{name}-Rechnung für Bestellung #{id}",
@@ -853,7 +882,9 @@
         "errorMessage": "Beim Abrufen Ihrer Ergebnisse ist ein Problem aufgetreten. Bitte versuchen Sie es in ein paar Sekunden erneut.",
         "quick_search": {
             "input_label": "Suchen",
-            "input_placeholder": "Shop durchsuchen"
+            "input_label_semantic": "Suchen",
+            "input_placeholder": "Shop durchsuchen",
+            "input_placeholder_semantic": "Beschreiben Sie, wonach Sie suchen"
         },
         "results": {
             "form_label": "Schlagwort suchen:",
@@ -867,6 +898,7 @@
         "faceted": {
             "selected": {
                 "title": "Eingrenzen auf",
+                "facet-label": "Angewendete Filter",
                 "rating-label": "Bewertet mit {rating, plural, one {# Stern} other {# Sterne}} oder höher",
                 "no-filters": "Kein Filter angewendet",
                 "clear-all": "Alles löschen"
@@ -874,11 +906,14 @@
             "range": {
                 "update": "Update",
                 "min-placeholder": "Min.",
-                "max-placeholder": "Max."
+                "max-placeholder": "Max.",
+                "min-description": "Mindestpreis eingeben, nach dem Produkte gefiltert werden sollen",
+                "max-description": "Höchstpreis eingeben, nach dem Produkte gefiltert werden sollen"
             },
             "rating": {
                 "and-up": "& höher"
             },
+            "label": "Das folgende Textfeld filtert die Ergebnisse, die während der Eingabe folgen",
             "toggleSection": "{title}-Filterabschnitt umschalten",
             "clear": "Löschen",
             "more": "Mehr",

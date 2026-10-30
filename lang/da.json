@@ -59,7 +59,9 @@
             "shipping": "Forsendelse",
             "grand_total": "Samlet beløb",
             "select": "Vælg",
-            "update": "Opdatér forsendelsesomkostninger"
+            "update": "Opdatér forsendelsesomkostninger",
+            "you_saved": "Du sparede",
+            "in_total": "i alt!"
         },
         "preview": {
             "checkout_now": "Betal nu",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] er ikke en gyldig indtastning",
         "coupon_code": "Kuponkode",
         "discount": "Rabat",
+        "discounts": "Rabatter",
+        "manual_discount": "Manuel rabat",
+        "automatic_discount": "Automatisk rabat",
         "included_in_total": " Inkluderet i samlet beløb",
         "remove_file": "Fjern denne fil",
         "freeshipping": "Gratis fragt",
@@ -79,6 +84,8 @@
         "remove_item": "Fjern {name} fra indkøbskurv",
         "confirm_delete": "Er du sikker på, at du vil slette denne vare?",
         "coupons": {
+            "apply_coupon": "Anvend kupon",
+            "apply_coupon_code": "Anvend kuponkode",
             "empty_error": "Indtast din kuponkode.",
             "cancel": "Annuller",
             "add_code": "Tilføj kode",
@@ -86,9 +93,11 @@
             "button": "Anvend",
             "coupon_code": "Indtast din kuponkode",
             "code_label": "Kupon ({code})",
-            "remove": "Fjern"
+            "remove": "Fjern",
+            "maximum_discount_applied": "Maksimal rabat anvendt"
         },
         "gift_certificates": {
+            "apply_gift_certificate": "Anvend gavekort",
             "change_gift_certificate": "Skift {certificate_name}",
             "add_cert_code": "Tilføj certifikat",
             "gift_certificate": "Gavekort",
@@ -139,8 +148,12 @@
         "store_credit": "Du har <strong>{store_credit}</strong> i butikskredit. For at bruge den skal du blot afgive din ordre. Du vil kunne vælge butikskredit som betalingsmetode, når det er tid til at betale for din ordre.",
         "store_credit_overview": "{credit} butikskredit",
         "generic_error": "Ups! Noget gik galt.",
-        "currency": "Vælg valuta: {code}",
+        "currency": "Valuta: {code}",
         "currency_switch_promotion": "Kampagner og gavekort, der ikke gælder for den nye valuta, fjernes fra din indkøbskurv. Er du sikker på, at du vil fortsætte?",
+        "channel": "Butik: {code}",
+        "channel_switch_warning": "Advarselstekst til butiksskift",
+        "locale_switch_warning": "Advarselstekst til sprogskift",
+        "locale": "Sprog:",
         "newsletter_signup": "Tilmeld dig vores nyhedsbrev",
         "form_submit": "Indsend",
         "no_preference": "Ingen præference",
@@ -179,6 +192,7 @@
         "paginator": {
             "page_of": "Side {current} af {total}"
         },
+        "pagination": "sideopsætning",
         "prices_are_in": "Priserne er i {CODE}",
         "previous": "Foregående",
         "next": "Næste",
@@ -223,6 +237,7 @@
     },
     "category": {
         "label": "Kategorier",
+        "product_label": "Filtrerede produkter",
         "shop_by_price": "Køb efter pris",
         "shop_by_price_range_aria": "Prisinterval fra {from} til {to}",
         "filter_price_range": "Prisinterval:",
@@ -345,7 +360,7 @@
                 "heading": "Ordrenummer {number}",
                 "order_contents": "Ordreindhold",
                 "ship_to": "Send til",
-                "ship_to_multi": "Varer afsendt til {street}, {city}, {state}, {zip}, {country}",
+                "ship_to_multi": "Send til {street}, {city}, {state}, {zip}, {country}",
                 "ship_to_multi_text": "Ordre vil blive sendt til flere adresser",
                 "pickup_details": "Afhentningsoplysninger",
                 "bill_to": "Faturér",
@@ -398,6 +413,7 @@
             "credit_card_number": "Kreditkortnummer",
             "expiration": "Udløb",
             "cvv": "CVV",
+            "payment_icons_label": "Betalingsikoner",
             "card_types": {
                 "american_express": "American Express",
                 "credit_card": "Kreditkort",
@@ -411,6 +427,7 @@
                 "visa": "Visa"
             },
             "ach": "ACH",
+            "sepa_direct_debit": "SEPA Direct Debit",
             "paypal": "PayPal",
             "billing_address_labels": {
                 "address_line_1": "Adresselinje 1",
@@ -701,16 +718,20 @@
             "reviews": {
                 "rating": "Feltet \"Bedømmelse\" må ikke være tomt.",
                 "title": "Feltet \"Anmeldelsesemne\" må ikke være tomt.",
+                "name": "Feltet 'Navn' må ikke være tomt.",
                 "comment": "Feltet \"Kommentarer\" må ikke være tomt."
             }
         }
     },
     "products": {
         "current_stock": "Aktuelt lager:",
+        "in_stock": "På lager",
         "quantity": "Antal:",
         "change_product_options": "Skift indstillinger for {name}",
         "quantity_decrease": "Reducer antallet af {name}",
         "quantity_increase": "Øg antallet af {name}",
+        "quantity_backordered": "{quantity} vil være i restordre",
+        "quantity_on_hand": "{quantity} klar til afsendelse",
         "quantity_error_message": "Antallet bør kun indeholde tal",
         "purchase_units": "{quantity, plural, =0{0 enheder} one {# enhed} other {# enheder}}",
         "max_purchase_quantity": "Maksimumskøb:",
@@ -798,6 +819,7 @@
         "gift_wrapping_available": "Tilgængelige valgmuligheder",
         "quantity_min": "Der skal som minimum købes {quantity}",
         "quantity_max": "Der kan maksimalt købes {quantity}",
+        "quantity_max_picklist": "Den maksimale købsmængde for {name} er {quantity}",
         "bulk_pricing": {
             "title": "Priser for mængdekøb:",
             "view": "Køb i store mængder og spar",
@@ -806,9 +828,16 @@
             "range": "Køb {min} {max, plural, =0{or above} other {- #}},",
             "percent": "og få en rabat på {discount}",
             "price": "og få en rabat på {discount}",
-            "fixed": "og betal kun {discount} for hver"
+            "fixed": "og betal kun {discount} for hver",
+            "fixed_both": {
+                "prefix": "og kun betale",
+                "suffix": "hver"
+            }
         },
-        "card_default_image_alt": "Billede kommer snart"
+        "card_default_image_alt": "Billede kommer snart",
+        "featured_promotions": {
+            "more_offers": "{count, plural, one {et tilbud mere} other {flere tilbud}}"
+        }
     },
     "invoice": {
         "for_order": "{name} Faktura for ordrenr.{id}",
@@ -853,7 +882,9 @@
         "errorMessage": "Der opstod et problem med at hente dine resultater. Prøv igen om et par sekunder.",
         "quick_search": {
             "input_label": "Søg",
-            "input_placeholder": "Søg i butikken"
+            "input_label_semantic": "Søg",
+            "input_placeholder": "Søg i butikken",
+            "input_placeholder_semantic": "Beskriv, hvad du leder efter"
         },
         "results": {
             "form_label": "Søgeord:",
@@ -867,6 +898,7 @@
         "faceted": {
             "selected": {
                 "title": "Indsnævr efter",
+                "facet-label": "Anvendte filtre",
                 "rating-label": "Bedømt {rating, plural, one {# stjerne} other {# stjerner}} eller flere",
                 "no-filters": "Ingen filtre anvendt",
                 "clear-all": "Ryd alle"
@@ -874,11 +906,14 @@
             "range": {
                 "update": "Opdater",
                 "min-placeholder": "Min.",
-                "max-placeholder": "Maks."
+                "max-placeholder": "Maks.",
+                "min-description": "Indtast den minimumpris, som produkternes skal filtreres efter",
+                "max-description": "Indtast den maksimumpris, som produkternes skal filtreres efter"
             },
             "rating": {
                 "and-up": "og op"
             },
+            "label": "Følgende tekstfelt filtrerer de resultater, der følger, mens du skriver",
             "toggleSection": "Skift {title} filterafsnit",
             "clear": "Ryd",
             "more": "Mere",

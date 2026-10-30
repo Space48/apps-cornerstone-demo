@@ -1,13 +1,13 @@
 import utils from '@bigcommerce/stencil-utils';
-import ProductDetailsBase, { optionChangeDecorator } from './product-details-base';
+import ProductDetailsBase from './product-details-base';
 import 'foundation-sites/js/foundation/foundation';
 import 'foundation-sites/js/foundation/foundation.reveal';
 import ImageGallery from '../product/image-gallery';
-import modalFactory, { alertModal, showAlertModal } from '../global/modal';
+import modalFactory, { alertModal, showAlertModal, ModalEvents } from '../global/modal';
 import { isEmpty, isPlainObject } from 'lodash';
-import nod from '../common/nod';
-import { announceInputErrorMessage } from '../common/utils/form-utils';
-import forms from '../common/models/forms';
+import nod from './nod';
+import { announceInputErrorMessage } from './utils/form-utils';
+import forms from './models/forms';
 import { normalizeFormData } from './utils/api';
 import { isBrowserIE, convertIntoArray } from './utils/ie-helpers';
 import bannerUtils from './utils/banner-utils';
@@ -17,6 +17,7 @@ export default class ProductDetails extends ProductDetailsBase {
     constructor($scope, context, productAttributesData = {}) {
         super($scope, context);
 
+        this.isCartPage = context.template === 'pages/cart';
         this.$overlay = $('[data-cart-item-add] .loadingOverlay');
         this.imageGallery = new ImageGallery($('[data-image-gallery]', this.$scope));
         this.imageGallery.init();
@@ -25,6 +26,7 @@ export default class ProductDetails extends ProductDetailsBase {
         this.swatchInitMessageStorage = {};
         this.swatchGroupIdList = $('[id^="swatchGroup"]').map((_, group) => $(group).attr('id'));
         this.storeInitMessagesForSwatches();
+        this.updateDateSelector();
 
         const $form = $('form[data-cart-item-add]', $scope);
 
@@ -40,8 +42,6 @@ export default class ProductDetails extends ProductDetailsBase {
         });
 
         const $productOptionsElement = $('[data-product-option-change]', $form);
-        const hasOptions = $productOptionsElement.html().trim().length;
-        const hasDefaultOptions = $productOptionsElement.find('[data-default]').length;
         const $productSwatchGroup = $('[id*="attribute_swatch"]', $form);
         const $productSwatchLabels = $('.form-option-swatch', $form);
         const placeSwatchLabelImage = (_, label) => {
@@ -83,6 +83,38 @@ export default class ProductDetails extends ProductDetailsBase {
             this.setProductVariant();
         });
 
+        const productId = $('[name="product_id"]', $form).val();
+        const initialSelection = $form.serialize();
+        utils.api.productAttributes.optionChange(productId, initialSelection, (err, response) => {
+            if (err || !response || !response.data) return;
+            // The synchronous init below applies rule hiding from BCData and can fire a corrective
+            // change for a default-into-conflict selection. If that already moved the selection, this
+            // response is for the stale (pre-correction) selection: discard it so it can't re-show
+            // rule-hidden values or show an unavailable message for a no-longer-selected combination.
+            // The corrective change runs its own optionChange for the corrected selection.
+            if ($form.serialize() !== initialSelection) return;
+
+            this.updateBackorderContext(response.data);
+            const vm = this.getViewModel(this.$scope);
+            const qty = parseInt(vm.quantity.$input.val(), 10) || 0;
+            this.updateQtyBackorderedMessage(qty, vm);
+            this.updateBackorderMessage(vm);
+            this.toggleBackorderedContainer(vm);
+            this.picklistBackorder.render(response.data, qty);
+            this.updateDefaultAttributesForOOS(response.data);
+            // Apply out-of-stock hide/show from this same payload before the rule pass, so rule
+            // hiding and reselection in updateDisabledOptionValues agree with in_stock_attributes.
+            this.updateProductAttributes(response.data);
+            // Re-apply rule hiding after the out-of-stock pass above (which re-shows in-stock values
+            // and would otherwise undo it). Safe from the stale-response race thanks to the guard.
+            this.updateDisabledOptionValues(response.data);
+            // Surface the rule's "unavailable" message for the default selection: a disable rule
+            // (not hidden) that the default selection completes sets purchasing_message in this
+            // response, and the initial BCData payload does not carry it.
+            this.showMessageBox(response.data.stock_message || response.data.purchasing_message);
+            this.updateAddToCartForQty(qty, vm);
+        });
+
         $form.on('submit', event => {
             this.addToCartValidator.performCheck();
 
@@ -91,17 +123,23 @@ export default class ProductDetails extends ProductDetailsBase {
             }
         });
 
-        // Update product attributes. Also update the initial view in case items are oos
-        // or have default variant properties that change the view
-        if ((isEmpty(productAttributesData) || hasDefaultOptions) && hasOptions) {
-            const $productId = $('[name="product_id"]', $form).val();
-            const optionChangeCallback = optionChangeDecorator.call(this, hasDefaultOptions);
+        this.updateProductAttributes(productAttributesData);
 
-            utils.api.productAttributes.optionChange($productId, $form.serialize(), 'products/bulk-discount-rates', optionChangeCallback);
+        if (productAttributesData
+            && typeof productAttributesData === 'object'
+            && Object.keys(productAttributesData).length > 0) {
+            this.updateView(productAttributesData, null);
+            // Apply "disable and hide" rule hiding from the initial BCData synchronously, so a
+            // forbidden default selection is corrected at load instead of staying visible until
+            // the async optionChange below resolves. No-op until the backend emits
+            // disabled_option_values in the initial payload.
+            this.updateDisabledOptionValues(productAttributesData);
         } else {
-            this.updateProductAttributes(productAttributesData);
-            bannerUtils.dispatchProductBannerEvent(productAttributesData);
+            // eslint-disable-next-line no-console
+            console.warn('BCData.product_attributes is empty on product initialization');
         }
+
+        bannerUtils.dispatchProductBannerEvent(productAttributesData);
 
         $productOptionsElement.show();
 
@@ -264,6 +302,7 @@ export default class ProductDetails extends ProductDetailsBase {
             const productAttributesData = response.data || {};
             const productAttributesContent = response.content || {};
             this.updateProductAttributes(productAttributesData);
+            this.updateDisabledOptionValues(productAttributesData);
             this.updateView(productAttributesData, productAttributesContent);
             this.updateProductDetailsData();
             bannerUtils.dispatchProductBannerEvent(productAttributesData);
@@ -276,11 +315,11 @@ export default class ProductDetails extends ProductDetailsBase {
             document.dispatchEvent(new CustomEvent('onProductOptionsChanged', {
                 bubbles: true,
                 detail: {
-                    content: productAttributesData,
-                    data: productAttributesContent,
+                    content: productAttributesContent,
+                    data: productAttributesData,
                 },
             }));
-        });
+        }, { baseUrl: this.context.secureBaseUrl });
     }
 
     /**
@@ -378,6 +417,11 @@ export default class ProductDetails extends ProductDetailsBase {
             this.addToCartValidator.performCheck();
 
             this.updateProductDetailsData();
+            this.updateQtyBackorderedMessage(qty, viewModel);
+            this.updateBackorderMessage(viewModel);
+            this.toggleBackorderedContainer(viewModel);
+            this.updateAddToCartForQty(qty, viewModel);
+            this.picklistBackorder.rerender(qty);
         });
 
         // Prevent triggering quantity change when pressing enter
@@ -391,7 +435,14 @@ export default class ProductDetails extends ProductDetailsBase {
         });
 
         this.$scope.on('keyup', '.form-input--incrementTotal', () => {
+            const viewModel = this.getViewModel(this.$scope);
+            const qty = parseInt(viewModel.quantity.$input.val(), 10) || 0;
             this.updateProductDetailsData();
+            this.updateQtyBackorderedMessage(qty, viewModel);
+            this.updateBackorderMessage(viewModel);
+            this.toggleBackorderedContainer(viewModel);
+            this.updateAddToCartForQty(qty, viewModel);
+            this.picklistBackorder.rerender(qty);
         });
     }
 
@@ -461,7 +512,7 @@ export default class ProductDetails extends ProductDetailsBase {
                 // if no modal, redirect to the cart page
                 this.redirectTo(response.data.cart_item.cart_url || this.context.urls.cart);
             }
-        });
+        }, { baseUrl: this.context.secureBaseUrl });
 
         this.setLiveRegionAttributes($addToCartBtn.next(), 'status', 'polite');
     }
@@ -485,6 +536,7 @@ export default class ProductDetails extends ProductDetailsBase {
                     },
                 },
             },
+            baseUrl: this.context.secureBaseUrl,
         };
 
         utils.api.cart.getContent(options, onComplete);
@@ -541,7 +593,16 @@ export default class ProductDetails extends ProductDetailsBase {
                 onComplete(response);
             }
 
-            if ($promotionBanner.length && $backToShopppingBtn.length) {
+            if (this.isCartPage) {
+                modal.$modal.one(ModalEvents.closed, () => {
+                    // Close quick search overlay if it's open (ESC and backdrop click don't close it automatically)
+                    const $searchContainer = $('#quickSearch');
+                    if ($searchContainer.hasClass('is-open')) {
+                        $searchContainer.removeClass('is-open').attr('aria-hidden', 'true');
+                    }
+                    bannerUpdateHandler();
+                });
+            } else if ($promotionBanner.length && $backToShopppingBtn.length) {
                 $backToShopppingBtn.on('click', bannerUpdateHandler);
                 $modalCloseBtn.on('click', bannerUpdateHandler);
             }
@@ -590,5 +651,52 @@ export default class ProductDetails extends ProductDetailsBase {
             bubbles: true,
             detail: { productDetails },
         }));
+    }
+
+    updateDateSelector() {
+        this.$scope.each((i, scope) => {
+            function updateDays(dateOption) {
+                const monthSelector = dateOption.querySelector('select[name$="[month]"]');
+                const daySelector = dateOption.querySelector('select[name$="[day]"]');
+                const yearSelector = dateOption.querySelector('select[name$="[year]"]');
+                const month = parseInt(monthSelector.value, 10);
+                const year = parseInt(yearSelector.value, 10);
+                let daysInMonth;
+
+                if (!Number.isNaN(month) && !Number.isNaN(year)) {
+                    switch (month) {
+                    case 2:
+                        daysInMonth = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0) ? 29 : 28;
+                        break;
+                    case 4: case 6: case 9: case 11:
+                        daysInMonth = 30;
+                        break;
+                    default:
+                        daysInMonth = 31;
+                    }
+
+                    for (let day = 29; day <= 31; day++) {
+                        const option = daySelector.querySelector(`option[value="${day}"]`);
+                        if (day <= daysInMonth && !option) {
+                            daySelector.options.add(new Option(day, day));
+                        } else if (day > daysInMonth && option) {
+                            option.remove();
+                        }
+                    }
+                }
+            }
+
+            $(scope).on('change', (e) => {
+                const dateOption = e.target && e.target.closest && e.target.closest('[data-product-attribute=date]');
+
+                if (dateOption) {
+                    updateDays(dateOption);
+                }
+            });
+
+            scope.querySelectorAll('[data-product-attribute=date]').forEach(dateOption => {
+                updateDays(dateOption);
+            });
+        });
     }
 }

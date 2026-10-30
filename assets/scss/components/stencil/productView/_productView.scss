@@ -216,6 +216,51 @@
     }
 }
 
+// Details - Product backorder message
+// -----------------------------------------------------------------------------
+
+.productView-stock-message {
+    font-weight: fontWeight("bold");
+}
+
+.productView-backorder-availability-prompt::before {
+    content: "| ";
+}
+
+[data-qty-backordered-message]:not(:empty) {
+    font-weight: fontWeight("bold");
+}
+
+[data-qty-backordered-message]:not(:empty) + [data-backorder-message]:not(:empty)::before {
+    content: "| ";
+}
+
+.productView-picklist-backorder {
+    font-size: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.productView-picklist-backorder-item {
+    color: stencilColor("form-label-font-color");
+    font-family: fontFamily("headingSans");
+    font-size: fontSize("smallest");
+    line-height: 1.8;
+    margin-top: 0;
+}
+
+.productView-picklist-backorder-name {
+    font-weight: fontWeight("bold");
+}
+
+// Unify vertical rhythm across the four stacked lines (stock, main-product
+// backordered, per-picklist bundles) so the group reads as one cluster.
+.form-field--stock .form-label--alternate {
+    cursor: default;
+    margin: 0;
+}
+
 
 // Details - Product Information
 // -----------------------------------------------------------------------------
@@ -356,6 +401,24 @@
             margin-top: 1rem;
             padding-right: spacing("half");
             width: 50%;
+        }
+
+        &.pre-order-buttons {
+            @include breakpoint("small") {
+                min-width: 50%;
+                width: auto;
+            }
+
+            @include breakpoint("medium") {
+                margin-right: remCalc(11px);
+                min-width: auto;
+                padding: 0;
+                width: auto;
+            }
+
+            .button {
+                padding: remCalc(13px) remCalc(24px);
+            }
         }
 
         .button {

@@ -56,6 +56,11 @@
             "value": "Google_Karla_400"
           },
           {
+            "group": "i18n.Karla",
+            "label": "i18n.KarlaBold",
+            "value": "Google_Karla_700"
+          },
+          {
             "group": "i18n.Roboto",
             "label": "i18n.Roboto",
             "value": "Google_Roboto_400"
@@ -711,6 +716,11 @@
         "content": "i18n.UtilityNavigation"
       },
       {
+        "type": "checkbox",
+        "label": "i18n.ChannelSelector",
+        "id": "show_channels"
+      },
+      {
         "type": "color",
         "label": "i18n.TextColor",
         "id": "navUser-color"
@@ -1340,6 +1350,30 @@
         "id": "color_hover_product_sold_out_badges",
         "reference": "product_sold_out_badges",
         "reference_default": "none"
+      },
+      {
+        "type": "heading",
+        "content": "i18n.FeaturedPromotions"
+      },
+      {
+        "type": "checkbox",
+        "label": "i18n.ShowFeaturedPromotions",
+        "force_reload": true,
+        "id": "show_featured_promotions"
+      },
+      {
+        "type": "color",
+        "label": "i18n.FeaturedPromotionBackgroundColor",
+        "id": "color_bg_featured_promotions",
+        "reference": "show_featured_promotions",
+        "reference_default": false
+      },
+      {
+        "type": "color",
+        "label": "i18n.FeaturedPromotionTextColor",
+        "id": "color_text_featured_promotions",
+        "reference": "show_featured_promotions",
+        "reference_default": false
       },
       {
         "type": "heading",
@@ -2238,6 +2272,11 @@
             "value": "Google_Karla_400"
           },
           {
+            "group": "i18n.Karla",
+            "label": "i18n.KarlaBold",
+            "value": "Google_Karla_700"
+          },
+          {
             "group": "i18n.Roboto",
             "label": "i18n.Roboto",
             "value": "Google_Roboto_400"
@@ -2288,6 +2327,11 @@
             "group": "i18n.Karla",
             "label": "i18n.Karla",
             "value": "Google_Karla_400"
+          },
+          {
+            "group": "i18n.Karla",
+            "label": "i18n.KarlaBold",
+            "value": "Google_Karla_700"
           },
           {
             "group": "i18n.Roboto",
@@ -2360,6 +2404,11 @@
             "value": "Google_Karla_400"
           },
           {
+            "group": "i18n.Karla",
+            "label": "i18n.KarlaBold",
+            "value": "Google_Karla_700"
+          },
+          {
             "group": "i18n.Roboto",
             "label": "i18n.Roboto",
             "value": "Google_Roboto_400"
@@ -2412,6 +2461,11 @@
             "value": "Google_Karla_400"
           },
           {
+            "group": "i18n.Karla",
+            "label": "i18n.KarlaBold",
+            "value": "Google_Karla_700"
+          },
+          {
             "group": "i18n.Roboto",
             "label": "i18n.Roboto",
             "value": "Google_Roboto_400"
@@ -2462,6 +2516,11 @@
             "group": "i18n.Karla",
             "label": "i18n.Karla",
             "value": "Google_Karla_400"
+          },
+          {
+            "group": "i18n.Karla",
+            "label": "i18n.KarlaBold",
+            "value": "Google_Karla_700"
           },
           {
             "group": "i18n.Roboto",
@@ -2523,6 +2582,11 @@
             "group": "i18n.Karla",
             "label": "i18n.Karla",
             "value": "Google_Karla_400"
+          },
+          {
+            "group": "i18n.Karla",
+            "label": "i18n.KarlaBold",
+            "value": "Google_Karla_700"
           },
           {
             "group": "i18n.Roboto",
@@ -2634,6 +2698,11 @@
             "group": "i18n.Karla",
             "label": "i18n.Karla",
             "value": "Google_Karla_400"
+          },
+          {
+            "group": "i18n.Karla",
+            "label": "i18n.KarlaBold",
+            "value": "Google_Karla_700"
           },
           {
             "group": "i18n.Roboto",
@@ -3638,200 +3707,6 @@
           {
             "value": "rect",
             "label": "i18n.Rectangle"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "i18n.PaymentBanners",
-    "enable": "paymentBanners",
-    "settings": [
-      {
-        "type": "paragraph",
-        "content": "i18n.BannersMessaging"
-      },
-      {
-        "type": "heading",
-        "content": "i18n.ProductPageBanner"
-      },
-      {
-        "type": "select",
-        "label": "i18n.BannerStyleColor",
-        "id": "paymentbanners-proddetailspage-color",
-        "force_reload": true,
-        "options": [
-          {
-            "value": "blue",
-            "label": "i18n.Blue"
-          },
-          {
-            "value": "black",
-            "label": "i18n.Black"
-          },
-          {
-            "value": "white",
-            "label": "i18n.White"
-          },
-          {
-            "value": "white-no-border",
-            "label": "i18n.White-no-border"
-          },
-          {
-            "value": "gray",
-            "label": "i18n.gray"
-          },
-          {
-            "value": "monochrome",
-            "label": "i18n.monochrome"
-          },
-          {
-            "value": "grayscale",
-            "label": "i18n.grayscale"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "label": "i18n.BannerStyleRatio",
-        "id": "paymentbanners-proddetailspage-ratio",
-        "force_reload": true,
-        "options": [
-          {
-            "value": "8x1",
-            "label": "i18n.8x1"
-          },
-          {
-            "value": "20x1",
-            "label": "i18n.20x1"
-          }
-        ]
-      },
-      {
-        "type": "heading",
-        "content": "i18n.HomePageBanner"
-      },
-      {
-        "type": "select",
-        "label": "i18n.BannerStyleColor",
-        "id": "paymentbanners-homepage-color",
-        "force_reload": true,
-        "options": [
-          {
-            "value": "blue",
-            "label": "i18n.Blue"
-          },
-          {
-            "value": "black",
-            "label": "i18n.Black"
-          },
-          {
-            "value": "white",
-            "label": "i18n.White"
-          },
-          {
-            "value": "white-no-border",
-            "label": "i18n.White-no-border"
-          },
-          {
-            "value": "gray",
-            "label": "i18n.gray"
-          },
-          {
-            "value": "monochrome",
-            "label": "i18n.monochrome"
-          },
-          {
-            "value": "grayscale",
-            "label": "i18n.grayscale"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "label": "i18n.BannerStyleRatio",
-        "id": "paymentbanners-homepage-ratio",
-        "force_reload": true,
-        "options": [
-          {
-            "value": "8x1",
-            "label": "i18n.8x1"
-          },
-          {
-            "value": "20x1",
-            "label": "i18n.20x1"
-          }
-        ]
-      },
-      {
-        "type": "heading",
-        "content": "i18n.CartPageBanner"
-      },
-      {
-        "type": "select",
-        "label": "i18n.BannerTextStyleColor",
-        "id": "paymentbanners-cartpage-text-color",
-        "force_reload": true,
-        "options": [
-          {
-            "value": "black",
-            "label": "i18n.Black"
-          },
-          {
-            "value": "white",
-            "label": "i18n.White"
-          },
-          {
-            "value": "monochrome",
-            "label": "i18n.monochrome"
-          },
-          {
-            "value": "grayscale",
-            "label": "i18n.grayscale"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "label": "i18n.BannerStyleLogoPosition",
-        "id": "paymentbanners-cartpage-logo-position",
-        "force_reload": true,
-        "options": [
-          {
-            "value": "left",
-            "label": "i18n.left"
-          },
-          {
-            "value": "right",
-            "label": "i18n.right"
-          },
-          {
-            "value": "top",
-            "label": "i18n.top"
-          }
-        ]
-      },
-      {
-        "type": "select",
-        "label": "i18n.BannerStyleLogoType",
-        "id": "paymentbanners-cartpage-logo-type",
-        "force_reload": true,
-        "options": [
-          {
-            "value": "inline",
-            "label": "i18n.inline"
-          },
-          {
-            "value": "primary",
-            "label": "i18n.primary"
-          },
-          {
-            "value": "alternative",
-            "label": "i18n.alternative"
-          },
-          {
-            "value": "none",
-            "label": "i18n.none"
           }
         ]
       }

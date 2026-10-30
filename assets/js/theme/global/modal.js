@@ -1,5 +1,6 @@
-import foundation from './foundation';
 import * as focusTrap from 'focus-trap';
+// eslint-disable-next-line import/no-cycle
+import foundation from './foundation';
 
 const bodyActiveClass = 'has-activeModal';
 const loadingOverlayClass = 'loadingOverlay';
@@ -230,7 +231,7 @@ export class Modal {
 
         if (this.focusTrap) this.focusTrap.deactivate();
 
-        if (this.$preModalFocusedEl) this.$preModalFocusedEl.focus();
+        if (this.$preModalFocusedEl) this.$preModalFocusedEl.trigger('focus');
 
         this.$preModalFocusedEl = null;
     }

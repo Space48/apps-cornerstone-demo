@@ -98,9 +98,24 @@
         stroke: stencilColor("navUser-color");
         transition: all 0.15s ease;
     }
+
+    &.navUser-action--currencySelector,
+    &.navUser-action--languageSelector,
+    &.navUser-action--channelSelector {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+
+        .icon {
+            margin: 0 0 0 spacing("quarter");
+        }
+    }
 }
 
-.navUser-action--currencySelector + .dropdown-menu {
+.navUser-action--currencySelector + .dropdown-menu,
+.navUser-action--languageSelector + .dropdown-menu,
+.navUser-action--channelSelector + .dropdown-menu {
     &::before {
         left: auto !important; // 6
         right: spacing("half"); // 6
@@ -109,6 +124,10 @@
     &::after {
         left: auto !important; // 6
         right: spacing("half") + remCalc(2px); // 6
+    }
+
+    & [data-locale-code] {
+        text-transform: capitalize;
     }
 }
 

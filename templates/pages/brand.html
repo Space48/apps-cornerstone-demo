@@ -6,10 +6,10 @@ brand:
 {{inject "brandProductsPerPage" theme_settings.brandpage_products_per_page}}
 {{#partial "head"}}
     {{#if pagination.brand.previous}}
-        <link rel="prev" href="{{pagination.brand.previous}}">
+        <link rel="prev" href="{{{pagination.brand.previous}}}">
     {{/if}}
     {{#if pagination.brand.next}}
-        <link rel="next" href="{{pagination.brand.next}}">
+        <link rel="next" href="{{{pagination.brand.next}}}">
     {{/if}}
 {{/partial}}
 
@@ -31,7 +31,7 @@ brand:
         {{> components/brand/sidebar}}
     </aside>
 
-    <div class="page-content" id="product-listing-container">
+    <main class="page-content" id="product-listing-container">
         {{#if brand.search_error }}
             <p>{{lang 'search.errorMessage'}}</p>
         {{else}}
@@ -42,7 +42,7 @@ brand:
             {{/if}}
             {{{region name="brand_below_content"}}}
         {{/if}}
-    </div>
+    </main>
 </div>
 
 {{/partial}}

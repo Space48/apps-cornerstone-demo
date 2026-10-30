@@ -137,7 +137,44 @@
                             </button>
                         {{/if}}
                     </div>
-
+                    {{#if stock_position}}
+                        {{#if ../cart.inventory_settings.show_quantity_on_hand}}
+                            {{#all stock_position.quantity_on_hand stock_position.quantity_backordered}}
+                                <p class="cart-item-backorder-message">{{lang 'products.quantity_on_hand' quantity=stock_position.quantity_on_hand}}</p>
+                            {{/all}}
+                        {{/if}}
+                        {{#if ../cart.inventory_settings.show_quantity_on_backorder}}
+                            {{#if stock_position.quantity_backordered}}
+                                <p class="cart-item-backorder-message">{{lang 'products.quantity_backordered' quantity=stock_position.quantity_backordered}}</p>
+                            {{/if}}
+                        {{/if}}
+                        {{#if ../cart.inventory_settings.show_backorder_message}}
+                            {{#if stock_position.backorder_message}}
+                                <p class="cart-item-backorder-message">{{stock_position.backorder_message}}</p>
+                            {{/if}}
+                        {{/if}}
+                        {{#each options}}
+                            {{#if linked_bundled_item}}
+                                {{#all ../../cart.inventory_settings.show_quantity_on_hand linked_bundled_item.stock_position.quantity_on_hand linked_bundled_item.stock_position.quantity_backordered}}{{assignVar "showOnHandQty" 1}}{{else}}{{assignVar "showOnHandQty" 0}}{{/all}}
+                                {{#all ../../cart.inventory_settings.show_quantity_on_backorder linked_bundled_item.stock_position.quantity_backordered}}{{assignVar "showBackorderedQty" 1}}{{else}}{{assignVar "showBackorderedQty" 0}}{{/all}}
+                                {{#all ../../cart.inventory_settings.show_backorder_message linked_bundled_item.stock_position.backorder_message}}{{assignVar "showBackorderMessage" 1}}{{else}}{{assignVar "showBackorderMessage" 0}}{{/all}}
+                                {{#or (getVar "showOnHandQty") (getVar "showBackorderedQty") (getVar "showBackorderMessage")}}
+                                    <div class="cart-item-option-stock">
+                                        <p class="cart-item-backorder-message"><strong>{{name}}:</strong></p>
+                                        {{#if (getVar "showOnHandQty")}}
+                                            <p class="cart-item-backorder-message">{{lang 'products.quantity_on_hand' quantity=linked_bundled_item.stock_position.quantity_on_hand}}</p>
+                                        {{/if}}
+                                        {{#if (getVar "showBackorderedQty")}}
+                                            <p class="cart-item-backorder-message">{{lang 'products.quantity_backordered' quantity=linked_bundled_item.stock_position.quantity_backordered}}</p>
+                                        {{/if}}
+                                        {{#if (getVar "showBackorderMessage")}}
+                                            <p class="cart-item-backorder-message">{{linked_bundled_item.stock_position.backorder_message}}</p>
+                                        {{/if}}
+                                    </div>
+                                {{/or}}
+                            {{/if}}
+                        {{/each}}
+                    {{/if}}
                 </td>
 
                 <td class="cart-item-block cart-item-info">
@@ -156,7 +193,7 @@
                                 data-confirm-delete="{{lang 'cart.confirm_delete'}}"
                                 aria-label="{{lang 'cart.remove_item' name=name}}"
                         >
-                            <svg><use href="#icon-close"></use></svg>
+                            <svg aria-hidden="true"><use href="#icon-close"></use></svg>
                         </button>
                     {{/or}}
                 </td>

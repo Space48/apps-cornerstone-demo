@@ -379,3 +379,57 @@ $optimizedCheckout-input--error-boxShadow: 0 0 3px transparentize(stencilColor("
     background-color: stencilColor("optimizedCheckout-loadingToaster-backgroundColor");
     color: stencilColor("optimizedCheckout-loadingToaster-textColor");
 }
+
+
+//
+// Styles for enhanced theme, which is applied when the
+// "Enhanced Checkout" option is enabled in the control panel.
+// -----------------------------------------------------------------------------
+
+.enhancedThemeV1 {
+    background-color: stencilColor("optimizedCheckout-header-backgroundColor");
+
+    .optimizedCheckout-form-checklist-checkbox:checked ~ .optimizedCheckout-form-label::before {
+        background-color: stencilColor("optimizedCheckout-formChecklist-color");
+        border-color: stencilColor("optimizedCheckout-formChecklist-color");
+    }
+
+    .optimizedCheckout-form-checklist-checkbox:checked ~ .optimizedCheckout-form-label::after {
+        background-color: stencilColor("optimizedCheckout-formField-backgroundColor");
+    }
+
+    .optimizedCheckout-form-checklist {
+        .optimizedCheckout-form-checklist-item {
+            border-color: stencilColor("optimizedCheckout-formChecklist-borderColor");
+        }
+
+        .optimizedCheckout-form-checklist-item--selected {
+            border-color: stencilColor("optimizedCheckout-formChecklist-color");
+            background-color: stencilColor("optimizedCheckout-formChecklist-backgroundColorSelected");
+        }
+    }
+
+    .optimizedCheckout-contentPrimary {
+        .optimizedCheckout-checkoutStep {
+            background-color: transparentize(stencilColor("optimizedCheckout-body-backgroundColor"), 0.5);
+
+            &.checkout-step--current {
+                background-color: stencilColor("optimizedCheckout-body-backgroundColor");
+            }
+
+            &:not(.checkout-step--current) .optimizedCheckout-buttonSecondary {
+                background-color: transparent;
+            }
+        }
+    }
+
+    .optimizedCheckout-orderSummary {
+        .optimizedCheckout-orderSummary-toggle {
+            color: stencilColor("optimizedCheckout-link-color");
+
+            svg {
+                fill: stencilColor("optimizedCheckout-link-color");
+            }
+        }
+    }
+}

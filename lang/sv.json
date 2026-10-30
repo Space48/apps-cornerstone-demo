@@ -59,7 +59,9 @@
             "shipping": "Frakt",
             "grand_total": "Totalsumma",
             "select": "Välj ",
-            "update": "Uppdatera fraktkostnad"
+            "update": "Uppdatera fraktkostnad",
+            "you_saved": "Du sparade",
+            "in_total": "totalt!"
         },
         "preview": {
             "checkout_now": "Till kassan",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] är inte en giltig post",
         "coupon_code": "Kupongkod",
         "discount": "Rabatt",
+        "discounts": "Rabatter",
+        "manual_discount": "Manuell rabatt",
+        "automatic_discount": "Automatisk rabatt",
         "included_in_total": " Ingår i totalt",
         "remove_file": "Ta bort den här filen",
         "freeshipping": "Gratis frakt",
@@ -79,6 +84,8 @@
         "remove_item": "Ta bort {name} från kundvagnen",
         "confirm_delete": "Är du säker på att du vill ta bort det här temat?",
         "coupons": {
+            "apply_coupon": "Tillämpa kupong",
+            "apply_coupon_code": "Tillämpa kupongkod",
             "empty_error": "Ange din kupongkod.",
             "cancel": "Annullera",
             "add_code": "Lägg till kod",
@@ -86,9 +93,11 @@
             "button": "Tillämpa",
             "coupon_code": "Ange din kupongkod",
             "code_label": "Kupong ({code})",
-            "remove": "Ta bort"
+            "remove": "Ta bort",
+            "maximum_discount_applied": "Maximal rabatt tillämpad"
         },
         "gift_certificates": {
+            "apply_gift_certificate": "Använd presentkort",
             "change_gift_certificate": "Ändra {certificate_name}",
             "add_cert_code": "Lägg till certifikat",
             "gift_certificate": "Presentkort",
@@ -139,8 +148,12 @@
         "store_credit": "Du har <strong>{store_credit}</strong> butikskredit. Du kan använda den genom att helt enkelt göra en beställning och välja butikskredit som betalningsmetod när det är dags att betala för beställningen.",
         "store_credit_overview": "{credit} butikskredit",
         "generic_error": "Hoppsan! Något gick fel.",
-        "currency": "Välj valuta: {code}",
+        "currency": "Valuta: {code}",
         "currency_switch_promotion": "Kampanjer och presentkort som inte gäller för den nya valutan kommer att tas bort från kundvagnen. Är du säker på att du vill fortsätta?",
+        "channel": "Butik: {code}",
+        "channel_switch_warning": "Varningstext för byte av butik",
+        "locale_switch_warning": "Varningstext för byte av språk",
+        "locale": "Språk:",
         "newsletter_signup": "Registrera dig för vårt nyhetsbrev",
         "form_submit": "Skicka in",
         "no_preference": "Ingen preferens",
@@ -179,6 +192,7 @@
         "paginator": {
             "page_of": "Sida {current} av {total}"
         },
+        "pagination": "sidnumrering",
         "prices_are_in": "Priserna är i {CODE}",
         "previous": "Föregående",
         "next": "Nästa",
@@ -223,6 +237,7 @@
     },
     "category": {
         "label": "Kategorier",
+        "product_label": "Filtrerade produkter",
         "shop_by_price": "Handla efter pris",
         "shop_by_price_range_aria": "Prisintervall från {from} till {to}",
         "filter_price_range": "Prisklass:",
@@ -345,7 +360,7 @@
                 "heading": "Beställningsnummer{number}",
                 "order_contents": "Beställ innehåll",
                 "ship_to": "Frakta till",
-                "ship_to_multi": "Artiklar som skickas till {street}, {city}, {state}, {zip}, {country}",
+                "ship_to_multi": "Skicka till {street}, {city}, {state}, {zip}, {country}",
                 "ship_to_multi_text": "Beställningen skickas till flera adresser",
                 "pickup_details": "Uppgifter för upphämtning",
                 "bill_to": "Fakturera till",
@@ -398,6 +413,7 @@
             "credit_card_number": "Kreditkortsnummer",
             "expiration": "Utgång",
             "cvv": "CVV",
+            "payment_icons_label": "Betalningsikoner",
             "card_types": {
                 "american_express": "American Express",
                 "credit_card": "Kreditkort",
@@ -411,6 +427,7 @@
                 "visa": "Visa"
             },
             "ach": "ACH",
+            "sepa_direct_debit": "SEPA direktdebitering",
             "paypal": "PayPal",
             "billing_address_labels": {
                 "address_line_1": "Adresslinje 1",
@@ -701,16 +718,20 @@
             "reviews": {
                 "rating": "Fältet \"Betyg\" får inte vara tomt.",
                 "title": "Fältet \"Granska ämne\" får inte vara tomt.",
+                "name": "Fältet ”Namn” kan inte vara tomt.",
                 "comment": "Fältet \"Kommentarer\" får inte vara tomt."
             }
         }
     },
     "products": {
         "current_stock": "Nuvarande lager:",
+        "in_stock": "I lager",
         "quantity": "Kvantitet:",
         "change_product_options": "Ändra alternativ för {name}",
         "quantity_decrease": "Minska antalet {name}",
         "quantity_increase": "Öka antalet {name}",
+        "quantity_backordered": "{quantity} kommer att restnoteras",
+        "quantity_on_hand": "{quantity} redo att skickas",
         "quantity_error_message": "Kvantiteten får endast innehålla siffror",
         "purchase_units": "{quantity, plural, =0{0 enheter} one {# enhet} other {# enhet}}",
         "max_purchase_quantity": "Maximalt köp:",
@@ -798,6 +819,7 @@
         "gift_wrapping_available": "Alternativ tillgängliga",
         "quantity_min": "Den minsta köpbara kvantiteten är {quantity}",
         "quantity_max": "Den maximala köpbara kvantiteten är {quantity}",
+        "quantity_max_picklist": "Maximalt antal som kan köpas av {name} är {quantity}",
         "bulk_pricing": {
             "title": "Bulkprissättning",
             "view": "Köp i bulk och spara",
@@ -806,9 +828,16 @@
             "range": "Köp {min} {max, plural, =0{eller högre} other {- #}}",
             "percent": "och få {discount} rabatt",
             "price": "och få {discount} rabatt",
-            "fixed": "och betala endast {discount} vardera"
+            "fixed": "och betala endast {discount} vardera",
+            "fixed_both": {
+                "prefix": "och betala endast",
+                "suffix": "Varje"
+            }
         },
-        "card_default_image_alt": "Bilden kommer snart"
+        "card_default_image_alt": "Bilden kommer snart",
+        "featured_promotions": {
+            "more_offers": "{count, plural, one {erbjudande till} other {erbjudanden till}}"
+        }
     },
     "invoice": {
         "for_order": "{name} Faktura för beställningsnummer{id}",
@@ -853,7 +882,9 @@
         "errorMessage": "Det har uppstått ett problem med att hämta dina resultat. Försök igen om några sekunder.",
         "quick_search": {
             "input_label": "Sök",
-            "input_placeholder": "Sök i butiken"
+            "input_label_semantic": "Sök",
+            "input_placeholder": "Sök i butiken",
+            "input_placeholder_semantic": "Beskriv vad du letar efter"
         },
         "results": {
             "form_label": "Nyckel ord för sökning:",
@@ -867,6 +898,7 @@
         "faceted": {
             "selected": {
                 "title": "Förfina med",
+                "facet-label": "Tillämpade filter",
                 "rating-label": "Betygsatte {rating, plural, one {# Star} other {# Stars}} eller mer",
                 "no-filters": "Inga filter tillämpade",
                 "clear-all": "Rensa alla"
@@ -874,11 +906,14 @@
             "range": {
                 "update": "Uppdatering",
                 "min-placeholder": "Min.",
-                "max-placeholder": "Max."
+                "max-placeholder": "Max.",
+                "min-description": "Ange det lägsta priset att filtrera produkter efter",
+                "max-description": "Ange det högsta priset att filtrera produkter efter"
             },
             "rating": {
                 "and-up": "och upp"
             },
+            "label": "Följande textfält filtrerar resultaten som följer när du skriver",
             "toggleSection": "Aktivera filteravsnitt {title}",
             "clear": "Rensa",
             "more": "Mer",

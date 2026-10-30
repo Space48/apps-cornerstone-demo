@@ -12,6 +12,7 @@ export default class Cart extends PageManager {
         this.$modal = null;
         this.$cartPageContent = $('[data-cart]');
         this.$cartContent = $('[data-cart-content]');
+        this.$cartCoupons = $('[data-cart-coupons]');
         this.$cartMessages = $('[data-cart-status]');
         this.$cartTotals = $('[data-cart-totals]');
         this.$cartAdditionalCheckoutBtns = $('[data-cart-additional-checkout-buttons]');
@@ -151,10 +152,22 @@ export default class Cart extends PageManager {
                 this.$modal.one(ModalEvents.opened, optionChangeHandler);
             }
 
+            const modalForm = this.$modal.find('form');
+            const refreshContent = () => this.refreshContent();
+            async function onSubmit(event) {
+                event.preventDefault();
+                utils.api.cart.postFormData(new FormData(this), () => {
+                    modal.close();
+                    refreshContent();
+                });
+            }
+
+            modalForm.on('submit', onSubmit);
+
             this.productDetails = new CartItemDetails(this.$modal, context);
 
             this.bindGiftWrappingForm();
-        });
+        }, { baseUrl: this.context.secureBaseUrl });
 
         utils.hooks.on('product-option-change', (event, currentTarget) => {
             const $form = $(currentTarget).find('form');
@@ -183,7 +196,7 @@ export default class Cart extends PageManager {
                 } else {
                     $submit.prop('disabled', false);
                 }
-            });
+            }, { baseUrl: this.context.secureBaseUrl });
         });
     }
 
@@ -193,11 +206,13 @@ export default class Cart extends PageManager {
         const options = {
             template: {
                 content: 'cart/content',
+                coupons: 'cart/coupons',
                 totals: 'cart/totals',
                 pageTitle: 'cart/page-title',
                 statusMessages: 'cart/status-messages',
                 additionalCheckoutButtons: 'cart/additional-checkout-buttons',
             },
+            baseUrl: this.context.secureBaseUrl,
         };
 
         this.$overlay.show();
@@ -209,6 +224,7 @@ export default class Cart extends PageManager {
 
         utils.api.cart.getContent(options, (err, response) => {
             this.$cartContent.html(response.content);
+            this.$cartCoupons.html(response.coupons);
             this.$cartTotals.html(response.totals);
             this.$cartMessages.html(response.statusMessages);
             this.$cartAdditionalCheckoutBtns.html(response.additionalCheckoutButtons);
@@ -250,14 +266,17 @@ export default class Cart extends PageManager {
         });
 
         // cart qty manually updates
-        $('.cart-item-qty-input', this.$cartContent).on('focus', function onQtyFocus() {
-            preVal = this.value;
-        }).change(event => {
-            const $target = $(event.currentTarget);
-            event.preventDefault();
+        $('.cart-item-qty-input', this.$cartContent).on({
+            focus: function onQtyFocus() {
+                preVal = this.value;
+            },
+            change: event => {
+                const $target = $(event.currentTarget);
+                event.preventDefault();
 
-            // update cart quantity
-            cartUpdateQtyTextChange($target, preVal);
+                // update cart quantity
+                cartUpdateQtyTextChange($target, preVal);
+            },
         });
 
         $('.cart-remove', this.$cartContent).on('click', event => {
@@ -285,27 +304,38 @@ export default class Cart extends PageManager {
 
     bindPromoCodeEvents() {
         const $couponContainer = $('.coupon-code');
-        const $couponForm = $('.coupon-form');
+        const $couponForm = this.context.multiCouponUIEnabled ? $('[data-coupon-form]') : $('.coupon-form');
         const $codeInput = $('[name="couponcode"]', $couponForm);
 
-        $('.coupon-code-add').on('click', event => {
-            event.preventDefault();
+        if (this.context.multiCouponUIEnabled) {
+            const $couponTrigger = $('[data-coupon-trigger]');
 
-            $(event.currentTarget).hide();
-            $couponContainer.show();
-            $couponContainer.attr('aria-hidden', false);
-            $('.coupon-code-cancel').show();
-            $codeInput.trigger('focus');
-        });
+            // Toggle coupon form visibility
+            $couponTrigger.on('click', (event) => {
+                event.preventDefault();
+                $couponForm.show();
+                $codeInput.trigger('focus');
+            });
+        } else {
+            $('.coupon-code-add').on('click', event => {
+                event.preventDefault();
 
-        $('.coupon-code-cancel').on('click', event => {
-            event.preventDefault();
+                $(event.currentTarget).hide();
+                $couponContainer.show();
+                $couponContainer.attr('aria-hidden', false);
+                $('.coupon-code-cancel').show();
+                $codeInput.trigger('focus');
+            });
 
-            $couponContainer.hide();
-            $couponContainer.attr('aria-hidden', true);
-            $('.coupon-code-cancel').hide();
-            $('.coupon-code-add').show();
-        });
+            $('.coupon-code-cancel').on('click', event => {
+                event.preventDefault();
+
+                $couponContainer.hide();
+                $couponContainer.attr('aria-hidden', true);
+                $('.coupon-code-cancel').hide();
+                $('.coupon-code-add').show();
+            });
+        }
 
         $couponForm.on('submit', event => {
             const code = $codeInput.val();
@@ -375,6 +405,7 @@ export default class Cart extends PageManager {
             const itemId = $(event.currentTarget).data('itemGiftwrap');
             const options = {
                 template: 'cart/modals/gift-wrapping-form',
+                baseUrl: this.context.secureBaseUrl,
             };
 
             event.preventDefault();
@@ -386,6 +417,10 @@ export default class Cart extends PageManager {
 
                 this.bindGiftWrappingForm();
             });
+        });
+
+        $('.cart-item-option-remove').on('click', () => {
+            window.confirm(this.context.giftWrappingRemoveMessage);
         });
     }
 
@@ -437,12 +472,25 @@ export default class Cart extends PageManager {
         this.bindPromoCodeEvents();
         this.bindGiftWrappingEvents();
         this.bindGiftCertificateEvents();
+        this.bindDiscountToggle();
 
         // initiate shipping estimator module
         const shippingErrorMessages = {
             country: this.context.shippingCountryErrorMessage,
             province: this.context.shippingProvinceErrorMessage,
         };
-        this.shippingEstimator = new ShippingEstimator($('[data-shipping-estimator]'), shippingErrorMessages);
+        this.shippingEstimator = new ShippingEstimator($('[data-shipping-estimator]'), shippingErrorMessages, this.context.secureBaseUrl);
+    }
+
+    bindDiscountToggle() {
+        const $discountToggle = $('[data-discount-toggle]');
+        const $discountDetails = $('[data-discount-details]');
+        const $discountIcon = $('.cart-discount-icon');
+
+        $discountToggle.on('click', (event) => {
+            event.preventDefault();
+            $discountDetails.slideToggle(300);
+            $discountIcon.toggleClass('is-open');
+        });
     }
 }

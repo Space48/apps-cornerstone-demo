@@ -7,7 +7,6 @@ import collapsibleFactory from './collapsible';
 import { Validators } from './utils/form-utils';
 import nod from './nod';
 
-
 const defaultOptions = {
     accordionToggleSelector: '#facetedSearch .accordion-navigation, #facetedSearch .facetedSearch-toggle',
     blockerSelector: '#facetedSearch .blocker',
@@ -431,15 +430,8 @@ class FacetedSearch {
     }
 
     onPopState() {
-        const currentUrl = window.location.href;
-        const searchParams = new URLSearchParams(currentUrl);
-        // If searchParams does not contain a page value then modify url query string to have page=1
-        if (!searchParams.has('page')) {
-            const linkUrl = $('.pagination-link').attr('href');
-            const re = /page=[0-9]+/i;
-            const updatedLinkUrl = linkUrl.replace(re, 'page=1');
-            window.history.replaceState({}, document.title, updatedLinkUrl);
-        }
+        if (document.location.hash !== '') return;
+
         $(window).trigger('statechange');
     }
 }

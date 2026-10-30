@@ -59,7 +59,9 @@
             "shipping": "Envio",
             "grand_total": "Total geral",
             "select": "Selecionar",
-            "update": "Atualizar o custo do envio"
+            "update": "Atualizar o custo do envio",
+            "you_saved": "You saved",
+            "in_total": "in total!"
         },
         "preview": {
             "checkout_now": "Finalizar a compra agora",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] não é uma entrada válida",
         "coupon_code": "Código de cupom",
         "discount": "Desconto",
+        "discounts": "Descontos",
+        "manual_discount": "Desconto manual",
+        "automatic_discount": "Automatic discount",
         "included_in_total": " Incluído no total",
         "remove_file": "Remover este arquivo",
         "freeshipping": "Frete grátis",
@@ -79,6 +84,8 @@
         "remove_item": "Remover {name} do carrinho",
         "confirm_delete": "Deseja mesmo excluir esse item?",
         "coupons": {
+            "apply_coupon": "Aplicar cupom",
+            "apply_coupon_code": "Apply coupon code",
             "empty_error": "Digite o código do cupom.",
             "cancel": "Cancelar",
             "add_code": "Adicionar o código",
@@ -86,9 +93,11 @@
             "button": "Aplicar",
             "coupon_code": "Insira o código do seu cupom",
             "code_label": "Cupom ({code})",
-            "remove": "Remover"
+            "remove": "Remover",
+            "maximum_discount_applied": "Maximum discount applied"
         },
         "gift_certificates": {
+            "apply_gift_certificate": "Aplicar vale-presente",
             "change_gift_certificate": "Alterar {certificate_name}",
             "add_cert_code": "Adicionar certificado",
             "gift_certificate": "Vale-presente",
@@ -139,8 +148,12 @@
         "store_credit": "Você tem <strong>{store_credit}</strong> de crédito na loja. Para usá-lo, basta fazer o seu pedido. Você poderá escolher o crédito na loja como forma de pagamento quando chegar a hora de pagar o pedido.",
         "store_credit_overview": "{credit} de crédito na loja",
         "generic_error": "Opa! Ocorreu um erro.",
-        "currency": "Selecione a moeda: {code}",
+        "currency": "Moeda: {code}",
         "currency_switch_promotion": "Promoções e vales-presente que não se aplicarem à nova moeda serão removidos do seu carrinho. Deseja mesmo continuar?",
+        "channel": "Loja: {code}",
+        "channel_switch_warning": "Texto de aviso para troca de loja",
+        "locale_switch_warning": "Warning text for language switching",
+        "locale": "Language:",
         "newsletter_signup": "Assine nosso boletim informativo",
         "form_submit": "Enviar",
         "no_preference": "Nenhuma preferência",
@@ -179,6 +192,7 @@
         "paginator": {
             "page_of": "Página {current} de {total}"
         },
+        "pagination": "paginação",
         "prices_are_in": "Os preços estão em {CODE}",
         "previous": "Anterior",
         "next": "Próximo",
@@ -223,6 +237,7 @@
     },
     "category": {
         "label": "Categorias",
+        "product_label": "Produtos filtrados",
         "shop_by_price": "Comprar por preço",
         "shop_by_price_range_aria": "Faixa de preço de {from} a {to}",
         "filter_price_range": "Faixa de preço:",
@@ -345,7 +360,7 @@
                 "heading": "Pedido #{number}",
                 "order_contents": "Conteúdos do pedido",
                 "ship_to": "Enviar para",
-                "ship_to_multi": "Itens enviados para {street}, {city}, {state}, {zip}, {country}",
+                "ship_to_multi": "Ship to {street}, {city}, {state}, {zip}, {country}",
                 "ship_to_multi_text": "O pedido será enviado para vários endereços",
                 "pickup_details": "Informações sobre a retirada",
                 "bill_to": "Faturar para",
@@ -398,6 +413,7 @@
             "credit_card_number": "Número do cartão de crédito",
             "expiration": "Vencimento",
             "cvv": "CVV",
+            "payment_icons_label": "Ícones de pagamento",
             "card_types": {
                 "american_express": "American Express",
                 "credit_card": "Cartão de crédito",
@@ -411,6 +427,7 @@
                 "visa": "Visa"
             },
             "ach": "ACH",
+            "sepa_direct_debit": "Débito direto SEPA",
             "paypal": "PayPal",
             "billing_address_labels": {
                 "address_line_1": "Endereço linha 1",
@@ -701,16 +718,20 @@
             "reviews": {
                 "rating": "O campo \"Classificação\" não pode ficar em branco.",
                 "title": "O campo \"Assunto da avaliação\" não pode ficar em branco.",
+                "name": "O campo 'Nome' não pode ficar em branco.",
                 "comment": "O campo \"Comentários\" não pode ficar em branco."
             }
         }
     },
     "products": {
         "current_stock": "Estoque atual:",
+        "in_stock": "in stock",
         "quantity": "Quantidade:",
         "change_product_options": "Alterar opções de {name}",
         "quantity_decrease": "Reduzir quantidade de {name}",
         "quantity_increase": "Aumentar quantidade de {name}",
+        "quantity_backordered": "{quantity} will be backordered",
+        "quantity_on_hand": "{quantity} ready to ship",
         "quantity_error_message": "A quantidade deve conter somente números",
         "purchase_units": "{quantity, plural, =0{0 unidades} one {# unidade} other {# unidades}}",
         "max_purchase_quantity": "Compra máxima:",
@@ -798,6 +819,7 @@
         "gift_wrapping_available": "Opções disponíveis",
         "quantity_min": "A quantidade mínima para comprar é de {quantity}",
         "quantity_max": "A quantidade máxima para comprar é de {quantity}",
+        "quantity_max_picklist": "The maximum purchasable quantity for {name} is {quantity}",
         "bulk_pricing": {
             "title": "Preços para grandes quantidades:",
             "view": "Compre em grande quantidade e economize",
@@ -806,9 +828,16 @@
             "range": "Compre {min} {max, plural, =0{or above} other {- #}}",
             "percent": "e receba {discount} de desconto",
             "price": "e receba {discount} de desconto",
-            "fixed": "e pague apenas {discount} cada"
+            "fixed": "e pague apenas {discount} cada",
+            "fixed_both": {
+                "prefix": "and pay only",
+                "suffix": "each"
+            }
         },
-        "card_default_image_alt": "Imagem em breve"
+        "card_default_image_alt": "Imagem em breve",
+        "featured_promotions": {
+            "more_offers": "{count, plural, one {more offer} other {more offers}}"
+        }
     },
     "invoice": {
         "for_order": "{name} Fatura do pedido #{id}",
@@ -853,7 +882,9 @@
         "errorMessage": "Ocorreu um problema na recuperação dos seus resultados. Tente novamente dentro de alguns segundos.",
         "quick_search": {
             "input_label": "Pesquisar",
-            "input_placeholder": "Pesquisar loja"
+            "input_label_semantic": "Pesquisar",
+            "input_placeholder": "Pesquisar loja",
+            "input_placeholder_semantic": "Describe what you're looking for"
         },
         "results": {
             "form_label": "Pesquisar palavra-chave:",
@@ -867,6 +898,7 @@
         "faceted": {
             "selected": {
                 "title": "Refinar por",
+                "facet-label": "Filtros aplicados",
                 "rating-label": "Com classificação de {rating, plural, one {# estrela} other {# estrelas}} ou mais",
                 "no-filters": "Nenhum filtro aplicado",
                 "clear-all": "Limpar tudo"
@@ -874,11 +906,14 @@
             "range": {
                 "update": "Atualizar",
                 "min-placeholder": "Mín.",
-                "max-placeholder": "Máx."
+                "max-placeholder": "Máx.",
+                "min-description": "Insira o preço mínimo para filtrar produtos",
+                "max-description": "Insira o preço máximo para filtrar produtos"
             },
             "rating": {
                 "and-up": "e acima"
             },
+            "label": "O campo de texto a seguir filtra os resultados conforme você digita",
             "toggleSection": "Ativar/desativar seção de filtros de {title}",
             "clear": "Limpar",
             "more": "Mais",

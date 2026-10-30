@@ -59,7 +59,9 @@
             "shipping": "Shipping",
             "grand_total": "Grand total",
             "select": "Select",
-            "update": "Update shipping cost"
+            "update": "Update shipping cost",
+            "you_saved": "You saved",
+            "in_total": "in total!"
         },
         "preview": {
             "checkout_now": "Check out now",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] is not a valid entry",
         "coupon_code": "Coupon Code",
         "discount": "Discount",
+        "discounts": "Discounts",
+        "manual_discount": "Manual discount",
+        "automatic_discount": "Automatic discount",
         "included_in_total": " Included in Total",
         "remove_file": "Remove this file",
         "freeshipping": "Free Shipping",
@@ -80,6 +85,7 @@
         "confirm_delete": "Are you sure you want to delete this item?",
         "coupons": {
             "apply_coupon": "Apply coupon",
+            "apply_coupon_code": "Apply coupon code",
             "empty_error": "Please enter your coupon code.",
             "cancel": "Cancel",
             "add_code": "Add code",
@@ -87,7 +93,8 @@
             "button": "Apply",
             "coupon_code": "Enter your coupon code",
             "code_label": "Coupon ({code})",
-            "remove": "Remove"
+            "remove": "Remove",
+            "maximum_discount_applied": "Maximum discount applied"
         },
         "gift_certificates": {
             "apply_gift_certificate": "Apply gift certificate",
@@ -141,8 +148,12 @@
         "store_credit": "You have <strong>{store_credit}</strong> of store credit. To use it, simply place your order and you will be able to choose store credit as the payment method when it comes time to pay for your order.",
         "store_credit_overview": "{credit} Store Credit",
         "generic_error": "Oops! Something went wrong.",
-        "currency": "Select Currency: {code}",
+        "currency": "Currency: {code}",
         "currency_switch_promotion" : "Promotions and gift certificates that don't apply to the new currency will be removed from your cart. Are you sure you want to continue?",
+        "channel": "Store: {code}",
+        "channel_switch_warning" : "Warning text for store switching",
+        "locale_switch_warning" : "Warning text for language switching",
+        "locale": "Language:",
         "newsletter_signup": "Register for our newsletter",
         "form_submit": "Submit",
         "no_preference": "No Preference",
@@ -181,6 +192,7 @@
         "paginator": {
             "page_of": "Page {current} of {total}"
         },
+        "pagination": "Pagination",
         "prices_are_in": "Prices are in {CODE}",
         "previous": "Previous",
         "next": "Next",
@@ -225,6 +237,7 @@
     },
     "category": {
         "label": "Categories",
+        "product_label": "Filtered products",
         "shop_by_price": "Shop By Price",
         "shop_by_price_range_aria": "Price range from {from} to {to}",
         "filter_price_range": "Price range:",
@@ -347,7 +360,7 @@
                 "heading": "Order #{number}",
                 "order_contents": "Order Contents",
                 "ship_to": "Ship To",
-                "ship_to_multi": "Items shipped to {street}, {city}, {state}, {zip}, {country}",
+                "ship_to_multi": "Ship to {street}, {city}, {state}, {zip}, {country}",
                 "ship_to_multi_text": "Order will be shipped to multiple addresses",
                 "pickup_details": "Pickup Details",
                 "bill_to": "Bill To",
@@ -400,6 +413,7 @@
             "credit_card_number": "Credit Card Number",
             "expiration": "Expiration",
             "cvv": "CVV",
+            "payment_icons_label": "Payment icons",
             "card_types": {
                 "american_express": "American Express",
                 "credit_card": "Credit Card",
@@ -413,6 +427,7 @@
                 "visa": "Visa"
             },
             "ach": "ACH",
+            "sepa_direct_debit": "SEPA Direct Debit",
             "paypal": "PayPal",
             "billing_address_labels": {
               "address_line_1": "Address Line 1",
@@ -704,16 +719,20 @@
             "reviews": {
                 "rating": "The 'Rating' field cannot be blank.",
                 "title": "The 'Review Subject' field cannot be blank.",
+                "name": "The 'Name' field cannot be blank.",
                 "comment": "The 'Comments' field cannot be blank."
             }
         }
     },
     "products": {
         "current_stock": "Current Stock:",
+        "in_stock": "in stock",
         "quantity": "Quantity:",
         "change_product_options": "Change options for {name}",
         "quantity_decrease": "Decrease Quantity of {name}",
         "quantity_increase": "Increase Quantity of {name}",
+        "quantity_backordered": "{quantity} will be backordered",
+        "quantity_on_hand": "{quantity} ready to ship",
         "quantity_error_message":"The quantity should contain only numbers",
         "purchase_units": "{quantity, plural, =0{0 units} one {# unit} other {# units}}",
         "max_purchase_quantity": "Maximum Purchase:",
@@ -801,6 +820,7 @@
         "gift_wrapping_available": "Options available",
         "quantity_min": "The minimum purchasable quantity is {quantity}",
         "quantity_max": "The maximum purchasable quantity is {quantity}",
+        "quantity_max_picklist": "The maximum purchasable quantity for {name} is {quantity}",
         "bulk_pricing": {
             "title": "Bulk Pricing:",
             "view": "Buy in bulk and save",
@@ -809,9 +829,16 @@
             "range": "Buy {min} {max, plural, =0{or above} other {- #}}",
             "percent": "and get {discount} off",
             "price": "and get {discount} off",
-            "fixed": "and pay only {discount} each"
+            "fixed": "and pay only {discount} each",
+            "fixed_both": {
+                "prefix": "and pay only",
+                "suffix": "each"
+            }
         },
-        "card_default_image_alt": "Image coming soon"
+        "card_default_image_alt": "Image coming soon",
+        "featured_promotions": {
+            "more_offers": "{count, plural, one {more offer} other {more offers}}"
+        }
     },
     "invoice": {
         "for_order": "{name} Invoice for Order #{id}",
@@ -856,7 +883,9 @@
         "errorMessage": "There was a problem retrieving your results. Please try again in a few seconds.",
         "quick_search": {
             "input_label": "Search",
-            "input_placeholder": "Search the store"
+            "input_label_semantic": "Search",
+            "input_placeholder": "Search the store",
+            "input_placeholder_semantic": "Describe what you're looking for"
         },
         "results": {
             "form_label": "Search Keyword:",
@@ -870,6 +899,7 @@
         "faceted": {
             "selected": {
                 "title": "Refine by",
+                "facet-label": "Applied filters",
                 "rating-label": "Rated {rating, plural, one {# Star} other {# Stars}} Or More",
                 "no-filters": "No filters applied",
                 "clear-all": "Clear all"
@@ -877,11 +907,14 @@
             "range": {
                 "update": "Update",
                 "min-placeholder": "Min.",
-                "max-placeholder": "Max."
+                "max-placeholder": "Max.",
+                "min-description": "Enter the minimum price to filter products by",
+                "max-description": "Enter the maximum price to filter products by"
             },
             "rating": {
                 "and-up": "& up"
             },
+            "label": "The following text field filters the results that follow as you type",
             "toggleSection": "Toggle {title} filter section",
             "clear": "Clear",
             "more": "More",

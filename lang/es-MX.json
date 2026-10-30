@@ -13,7 +13,7 @@
         "powered_by": "Desarrollado por"
     },
     "home": {
-        "heading": "Página de inicio"
+        "heading": "Inicio"
     },
     "blog": {
         "recent_posts": "Publicaciones recientes",
@@ -59,7 +59,9 @@
             "shipping": "Envío",
             "grand_total": "Total",
             "select": "Seleccionar",
-            "update": "Actualizar el costo de envío"
+            "update": "Actualizar el costo de envío",
+            "you_saved": "Salvaste",
+            "in_total": "¡en total!"
         },
         "preview": {
             "checkout_now": "Pagar ahora",
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] no es un ingreso válido",
         "coupon_code": "Código de cupón",
         "discount": "Descuento",
+        "discounts": "Descuentos",
+        "manual_discount": "Descuento manual",
+        "automatic_discount": "Descuento automático",
         "included_in_total": " Incluido en el total",
         "remove_file": "Eliminar este archivo",
         "freeshipping": "Envío gratuito",
@@ -79,6 +84,8 @@
         "remove_item": "Eliminar {name} del carrito",
         "confirm_delete": "¿Estás seguro de que deseas eliminar este elemento?",
         "coupons": {
+            "apply_coupon": "Aplicar cupón",
+            "apply_coupon_code": "Aplica el código de cupón",
             "empty_error": "Ingresa tu código de cupón.",
             "cancel": "Cancelar",
             "add_code": "Agregar código",
@@ -86,9 +93,11 @@
             "button": "Aplicar",
             "coupon_code": "Ingresa tu código de cupón",
             "code_label": "Cupón ({code})",
-            "remove": "Quitar"
+            "remove": "Quitar",
+            "maximum_discount_applied": "Descuento máximo aplicado"
         },
         "gift_certificates": {
+            "apply_gift_certificate": "Aplicar certificado de regalo",
             "change_gift_certificate": "Cambiar {certificate_name}",
             "add_cert_code": "Agregar certificado",
             "gift_certificate": "Certificado de regalo",
@@ -139,8 +148,12 @@
         "store_credit": "Tienes <strong>{store_credit}</strong> de crédito en la tienda. Para usarlo, solo haz tu pedido y, al momento de pagar, podrás elegir el crédito de la tienda como método de pago.",
         "store_credit_overview": "{credit} de crédito de la tienda",
         "generic_error": "Lo sentimos, pero ocurrió un error.",
-        "currency": "Seleccionar moneda: {code}",
+        "currency": "Moneda: {code}",
         "currency_switch_promotion": "Las promociones y los certificados de regalo no aplicables a la nueva moneda se eliminarán de tu carrito. ¿Estás seguro de que deseas continuar?",
+        "channel": "Tienda: {code}",
+        "channel_switch_warning": "Texto de advertencia para cambio de tienda",
+        "locale_switch_warning": "Texto de advertencia para cambio de idioma",
+        "locale": "Idiomas",
         "newsletter_signup": "Regístrate para recibir nuestro boletín informativo",
         "form_submit": "Enviar",
         "no_preference": "No hay preferencia",
@@ -179,6 +192,7 @@
         "paginator": {
             "page_of": "Página {current} de {total}"
         },
+        "pagination": "paginación",
         "prices_are_in": "Los precios están en {CODE}",
         "previous": "Anterior",
         "next": "Siguiente",
@@ -223,6 +237,7 @@
     },
     "category": {
         "label": "Categorías",
+        "product_label": "Productos filtrados",
         "shop_by_price": "Comprar por precio",
         "shop_by_price_range_aria": "Rango de precios de {from} a {to}",
         "filter_price_range": "Rango de precios:",
@@ -345,7 +360,7 @@
                 "heading": "Pedido n.° {number}",
                 "order_contents": "Contenido del pedido",
                 "ship_to": "Enviar a",
-                "ship_to_multi": "Artículos enviados a {street}, {city}, {state}, {zip}, {country}",
+                "ship_to_multi": "Envío a {street}, {city}, {state}, {zip} {country}",
                 "ship_to_multi_text": "El pedido se enviará a varias direcciones.",
                 "pickup_details": "Detalles de la recolección",
                 "bill_to": "Facturar a",
@@ -398,6 +413,7 @@
             "credit_card_number": "Número de tarjeta de crédito",
             "expiration": "Vencimiento",
             "cvv": "CVV",
+            "payment_icons_label": "Íconos de pago",
             "card_types": {
                 "american_express": "American Express",
                 "credit_card": "Tarjeta de crédito",
@@ -411,6 +427,7 @@
                 "visa": "Visa"
             },
             "ach": "ACH",
+            "sepa_direct_debit": "SEPA Direct Debit",
             "paypal": "PayPal",
             "billing_address_labels": {
                 "address_line_1": "Línea de dirección 1",
@@ -701,16 +718,20 @@
             "reviews": {
                 "rating": "El campo \"Calificación\" no puede estar en blanco.",
                 "title": "El campo \"Revisar asunto\" no puede estar en blanco.",
+                "name": "El campo “Nombre” no puede quedar en blanco.",
                 "comment": "El campo \"Comentarios\" no puede estar en blanco."
             }
         }
     },
     "products": {
         "current_stock": "Existencias actuales:",
+        "in_stock": "En existencias",
         "quantity": "Cantidad:",
         "change_product_options": "Cambiar las opciones de {name}",
         "quantity_decrease": "Disminuir la cantidad de {name}",
         "quantity_increase": "Aumentar la cantidad de {name}",
+        "quantity_backordered": "{quantity} estará en pedido pendiente",
+        "quantity_on_hand": "{quantity} listo para enviar",
         "quantity_error_message": "La cantidad debe contener solo números.",
         "purchase_units": "{quantity, plural, =0{0 units} one {# unit} other {# units}}",
         "max_purchase_quantity": "Compra máxima:",
@@ -780,8 +801,8 @@
         "choose_an_option": "Elige una opción",
         "select_one": "Selecciona una",
         "description": "Descripción",
-        "price_with_tax": "(Inc. {tax_label})",
-        "price_without_tax": "(Por ejemplo, {tax_label})",
+        "price_with_tax": "(Con {tax_label})",
+        "price_without_tax": "(Sin {tax_label})",
         "including_tax": "Incluye impuestos",
         "excluding_tax": "Excluyendo impuestos",
         "weight": "Peso:",
@@ -798,6 +819,7 @@
         "gift_wrapping_available": "Opciones disponibles",
         "quantity_min": "La cantidad mínima de compra es {quantity}",
         "quantity_max": "La cantidad máxima de compra es {quantity}",
+        "quantity_max_picklist": "La cantidad máxima que se puede comprar para {name} es {quantity}",
         "bulk_pricing": {
             "title": "Precios al por mayor:",
             "view": "Compra al por mayor y ahorra",
@@ -806,9 +828,16 @@
             "range": "Compra {min} {max, plural, =0{or above} other {- #}}",
             "percent": "y recibe {discount} de descuento",
             "price": "y recibe {discount} de descuento",
-            "fixed": "y paga solo {discount} cada uno"
+            "fixed": "y paga solo {discount} cada uno",
+            "fixed_both": {
+                "prefix": "y solo paga",
+                "suffix": "cada uno"
+            }
         },
-        "card_default_image_alt": "La imagen estará disponible próximamente"
+        "card_default_image_alt": "La imagen estará disponible próximamente",
+        "featured_promotions": {
+            "more_offers": "{count, plural, one {oferta más} other {más ofertas}}"
+        }
     },
     "invoice": {
         "for_order": "{name} Factura del pedido n.° {id}",
@@ -853,7 +882,9 @@
         "errorMessage": "Ocurrió un problema al recuperar tus resultados. Vuelve a intentarlo en unos segundos.",
         "quick_search": {
             "input_label": "Buscar",
-            "input_placeholder": "Buscar en la tienda"
+            "input_label_semantic": "Buscar",
+            "input_placeholder": "Buscar en la tienda",
+            "input_placeholder_semantic": "Describe lo que estás buscando"
         },
         "results": {
             "form_label": "Palabra clave de búsqueda:",
@@ -867,6 +898,7 @@
         "faceted": {
             "selected": {
                 "title": "Refinar por",
+                "facet-label": "Filtros aplicados",
                 "rating-label": "Calificado con {rating, plural, one {# Star} other {# Stars}} o más",
                 "no-filters": "No se aplicaron filtros",
                 "clear-all": "Borrar todo"
@@ -874,11 +906,14 @@
             "range": {
                 "update": "Actualizar",
                 "min-placeholder": "Mín.",
-                "max-placeholder": "Máx."
+                "max-placeholder": "Máx.",
+                "min-description": "Ingresa el precio mínimo para filtrar productos por",
+                "max-description": "Ingresa el precio máximo para filtrar productos por"
             },
             "rating": {
                 "and-up": "y más"
             },
+            "label": "El siguiente campo de texto filtra los resultados que siguen a medida que escribes",
             "toggleSection": "Cambiar la sección del filtro {title}",
             "clear": "Borrar",
             "more": "Más",

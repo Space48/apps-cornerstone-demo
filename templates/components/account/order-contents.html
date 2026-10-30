@@ -2,15 +2,13 @@
 
 <ul class="account-list">
     {{#each order.items}}
-        {{#if shipping_rows.length}}
-            {{#each shipping_rows}}
-                {{#if is_shipping}}
-                    <li class="account-listShipping">
-                        <h5 class="account-listShipping-title">{{lang 'account.orders.details.ship_to_multi' street=address city=city state=state zip=zip country=country}}</h5>
-                    </li>
-                {{/if}}
-            {{/each}}
-        {{/if}}
+        {{#each shipping_rows}}
+            {{#if is_shipping}}
+                <li class="account-listShipping">
+                    <h5 class="account-listShipping-title">{{lang 'account.orders.details.ship_to_multi' street=address city=city state=state zip=zip country=country}}</h5>
+                </li>
+            {{/if}}
+        {{/each}}
     <li class="account-listItem">
         <div class="account-product account-product--alignMiddle">
             <div class="account-product-checkItem">
@@ -56,11 +54,29 @@
                 {{#if brand}}
                     <h6>{{brand.name}}</h6>
                 {{/if}}
+                {{#if quantity_ready_to_ship}}
+                    <p class="account-product-backorder-prompts">{{lang 'products.quantity_on_hand' quantity=quantity_ready_to_ship}}</p>
+                {{/if}}
+                {{#if quantity_backordered}}
+                    <p class="account-product-backorder-prompts">{{lang 'products.quantity_backordered' quantity=quantity_backordered}}</p>
+                {{/if}}
+                {{#if backorder_message}}
+                    <p class="account-product-backorder-prompts">{{backorder_message}}</p>
+                {{/if}}
                 {{#if options}}
                 <dl class="definitionList">
                     {{#each options}}
                         <dt class="definitionList-key">{{name}}:</dt>
                         <dd class="definitionList-value">{{> components/common/product-options}}</dd>
+                        {{#if linked_bundled_item.quantity_ready_to_ship}}
+                            <dd class="definitionList-value account-product-backorder-prompts">{{lang 'products.quantity_on_hand' quantity=linked_bundled_item.quantity_ready_to_ship}}</dd>
+                        {{/if}}
+                        {{#if linked_bundled_item.quantity_backordered}}
+                            <dd class="definitionList-value account-product-backorder-prompts">{{lang 'products.quantity_backordered' quantity=linked_bundled_item.quantity_backordered}}</dd>
+                        {{/if}}
+                        {{#if linked_bundled_item.backorder_message}}
+                            <dd class="definitionList-value account-product-backorder-prompts">{{linked_bundled_item.backorder_message}}</dd>
+                        {{/if}}
                     {{/each}}
                 </dl>
                 {{/if}}

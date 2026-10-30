@@ -2,7 +2,7 @@ import { hooks } from '@bigcommerce/stencil-utils';
 import CatalogPage from './catalog';
 import compareProducts from './global/compare-products';
 import FacetedSearch from './common/faceted-search';
-import { createTranslationDictionary } from '../theme/common/utils/translations-utils';
+import { createTranslationDictionary } from './common/utils/translations-utils';
 
 export default class Category extends CatalogPage {
     constructor(context) {
@@ -21,7 +21,7 @@ export default class Category extends CatalogPage {
         if (!$('[data-shop-by-price]').length) return;
 
         if ($('.navList-action').hasClass('is-active')) {
-            $('a.navList-action.is-active').focus();
+            $('a.navList-action.is-active').trigger('focus');
         }
 
         $('a.navList-action').on('click', () => this.setLiveRegionAttributes($('span.price-filter-message'), 'status', 'assertive'));
@@ -53,7 +53,7 @@ export default class Category extends CatalogPage {
             $('input[name="price_max"]').attr('value', urlParams.get('price_max'));
         }
 
-        $('a.reset-btn').on('click', () => this.setLiveRegionsAttributes($('span.reset-message'), 'status', 'polite'));
+        $('a.reset-btn').on('click', () => this.setLiveRegionAttributes($('span.reset-message'), 'status', 'polite'));
 
         this.ariaNotifyNoProducts();
     }
@@ -61,7 +61,7 @@ export default class Category extends CatalogPage {
     ariaNotifyNoProducts() {
         const $noProductsMessage = $('[data-no-products-notification]');
         if ($noProductsMessage.length) {
-            $noProductsMessage.focus();
+            $noProductsMessage.trigger('focus');
         }
     }
 
@@ -79,7 +79,6 @@ export default class Category extends CatalogPage {
         const requestOptions = {
             config: {
                 category: {
-                    shop_by_price: true,
                     products: {
                         limit: productsPerPage,
                     },

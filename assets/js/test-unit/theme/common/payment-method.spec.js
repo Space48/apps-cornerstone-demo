@@ -1,4 +1,6 @@
-import { creditCardType, storeInstrument, Formatters, Validators } from '../../../theme/common/payment-method';
+import {
+    creditCardType, Formatters, Validators,
+} from '../../../theme/common/payment-method';
 
 describe('PaymentMethod', () => {
     describe('creditCardType', () => {
@@ -16,10 +18,10 @@ describe('PaymentMethod', () => {
 
         beforeEach(() => {
             $form = $(
-              `<form>
+                `<form>
                   <input name="credit_card_number" />
                   <input name="expiration" />
-              '</form>`
+              '</form>`,
             );
             $form.appendTo(document.body);
         });
@@ -127,7 +129,7 @@ describe('PaymentMethod', () => {
 
             it('should have valid input expiration date', () => {
                 const callback = jasmine.createSpy();
-                const validator = { add: ({ validate }) => validate(callback, '12/25') };
+                const validator = { add: ({ validate }) => validate(callback, '12/30') };
                 Validators.setExpirationValidation(validator, 'selector');
 
                 expect(callback).toHaveBeenCalledWith(true);

@@ -46,7 +46,7 @@
                 "multiple": "wymeldowanie z wielu adresów",
                 "or": "lub"
             },
-            "button": "Sprawdź",
+            "button": "Do kasy",
             "empty_cart": "Twój koszyk jest pusty",
             "title": "Kliknij tutaj, aby przejść do kasy",
             "item": "Przedmiot",
@@ -59,10 +59,12 @@
             "shipping": "Wysyłka",
             "grand_total": "Suma całkowita",
             "select": "Wybierz",
-            "update": "Uaktualnij koszt wysyłki"
+            "update": "Uaktualnij koszt wysyłki",
+            "you_saved": "You saved",
+            "in_total": "in total!"
         },
         "preview": {
-            "checkout_now": "Sprawdź teraz",
+            "checkout_now": "Do kasy teraz",
             "checkout_multiple": "lub sprawdź, czy masz wiele adresów",
             "view_cart": "Zobacz koszyk"
         },
@@ -71,6 +73,9 @@
         "invalid_entry_message": "[ENTRY] nie jest prawidłowym wpisem",
         "coupon_code": "Kod kuponu",
         "discount": "Rabat",
+        "discounts": "Rabaty",
+        "manual_discount": "Rabat ustawiony ręcznie",
+        "automatic_discount": "Automatic discount",
         "included_in_total": " Włączone do całości",
         "remove_file": "Usuń ten plik",
         "freeshipping": "Darmowa wysyłka",
@@ -79,6 +84,8 @@
         "remove_item": "Usuń {name} z koszyka",
         "confirm_delete": "Czy na pewno chcesz usunąć ten element?",
         "coupons": {
+            "apply_coupon": "Zastosuj kupon",
+            "apply_coupon_code": "Apply coupon code",
             "empty_error": "Wpisz swój kod kuponu.",
             "cancel": "Anuluj",
             "add_code": "Dodaj kod",
@@ -86,9 +93,11 @@
             "button": "Zgłoś się na",
             "coupon_code": "Wpisz swój kod kuponu",
             "code_label": "Kupon ({code})",
-            "remove": "Usuń"
+            "remove": "Usuń",
+            "maximum_discount_applied": "Maximum discount applied"
         },
         "gift_certificates": {
+            "apply_gift_certificate": "Zastosuj bon podarunkowy",
             "change_gift_certificate": "Zmiana {certificate_name}",
             "add_cert_code": "Dodaj certyfikat",
             "gift_certificate": "Bon podarunkowy",
@@ -139,8 +148,12 @@
         "store_credit": "Masz do dyspozycji <strong>{store_credit}</strong> kredyt sklepowy. Aby go wykorzystać, po prostu złóż zamówienie, a kiedy przyjdzie czas zapłaty za zamówienie, będziesz mógł wybrać kredyt sklepowy jako metodę płatności.",
         "store_credit_overview": "{credit} Kredyt w sklepie",
         "generic_error": "Ups! Coś poszło nie tak.",
-        "currency": "Wybierz walutę: {code}",
+        "currency": "Waluta: {code}",
         "currency_switch_promotion": "Promocje i bony upominkowe, które nie dotyczą nowej waluty, zostaną usunięte z koszyka. Czy na pewno chcesz kontynuować?",
+        "channel": "Sklep: {code}",
+        "channel_switch_warning": "Tekst ostrzeżenia o przełączaniu sklepu",
+        "locale_switch_warning": "Warning text for language switching",
+        "locale": "Language:",
         "newsletter_signup": "Zarejestruj się w naszym newsletterze",
         "form_submit": "Wyślij",
         "no_preference": "Bez preferencji",
@@ -170,7 +183,7 @@
         "search": "Szukaj na stronie",
         "gift_cert": "Certyfikaty podarunkowe",
         "save": "Zapisz",
-        "share": "Share",
+        "share": "Udostępnij",
         "delete": "Usuń",
         "public": "Publiczna",
         "private": "Prywatna",
@@ -179,6 +192,7 @@
         "paginator": {
             "page_of": "Strona {current} z {total}"
         },
+        "pagination": "dzielenie na strony",
         "prices_are_in": "Ceny są podane w {CODE}.",
         "previous": "Poprzedni",
         "next": "Dalej",
@@ -223,6 +237,7 @@
     },
     "category": {
         "label": "Kategorie",
+        "product_label": "Filtrowane produkty",
         "shop_by_price": "Sklep według ceny",
         "shop_by_price_range_aria": "Zakres cen od {from} do {to}",
         "filter_price_range": "Zakres cen:",
@@ -274,7 +289,7 @@
         "new_customer": {
             "heading": "Nowy klient?",
             "intro": "Załóż u nas konto, a będziesz mógł:",
-            "fact1": "Sprawdź szybciej",
+            "fact1": "Do kasy szybciej",
             "fact2": "Zapisz wiele adresów wysyłki",
             "fact3": "Dostęp do historii zamówień",
             "fact4": "Śledzenie nowych zamówień",
@@ -345,7 +360,7 @@
                 "heading": "Zamówienie #{number}",
                 "order_contents": "Zawartość zamówienia",
                 "ship_to": "Wysyłka do",
-                "ship_to_multi": "Elementy wysłane na {street}, {city}, {state}, {zip}, {country}",
+                "ship_to_multi": "Ship to {street}, {city}, {state}, {zip}, {country}",
                 "ship_to_multi_text": "Zamówienie zostanie wysłane na wiele adresów",
                 "pickup_details": "Szczegóły odbioru",
                 "bill_to": "Bill To",
@@ -398,6 +413,7 @@
             "credit_card_number": "Numer karty kredytowej",
             "expiration": "Wygaśnięcie",
             "cvv": "CVV",
+            "payment_icons_label": "Ikony płatności",
             "card_types": {
                 "american_express": "American Express",
                 "credit_card": "Karta kredytowa",
@@ -411,6 +427,7 @@
                 "visa": "Visa"
             },
             "ach": "ACH",
+            "sepa_direct_debit": "Polecenie zapłaty SEPA",
             "paypal": "PayPal",
             "billing_address_labels": {
                 "address_line_1": "Linia adresowa 1",
@@ -701,16 +718,20 @@
             "reviews": {
                 "rating": "Pole \"Ocena\" nie może być puste.",
                 "title": "Pole \"Temat przeglądu\" nie może być puste.",
+                "name": "Pole „Nazwa” nie może być puste.",
                 "comment": "Pole \"Komentarz\" nie może być puste."
             }
         }
     },
     "products": {
         "current_stock": "Aktualne zapasy:",
+        "in_stock": "in stock",
         "quantity": "Ilość:",
         "change_product_options": "Zmień opcje dla {name}",
         "quantity_decrease": "Zmniejsz ilość {name}",
         "quantity_increase": "Zwiększ ilość {name}",
+        "quantity_backordered": "{quantity} will be backordered",
+        "quantity_on_hand": "{quantity} ready to ship",
         "quantity_error_message": "Ilość powinna zawierać tylko liczby",
         "purchase_units": "{quantity, plural, =0{0 jednostek} one {# unit} other {# jednostki}}",
         "max_purchase_quantity": "Maksymalny zakup:",
@@ -798,6 +819,7 @@
         "gift_wrapping_available": "Dostępne opcje",
         "quantity_min": "Minimalna ilość do nabycia to {quantity}.",
         "quantity_max": "Maksymalna ilość do nabycia to {quantity}.",
+        "quantity_max_picklist": "The maximum purchasable quantity for {name} is {quantity}",
         "bulk_pricing": {
             "title": "Ceny hurtowe:",
             "view": "Kupuj hurtowo i oszczędzaj",
@@ -806,9 +828,16 @@
             "range": "Kup {min} {max, plural, =0{lub wyżej} other {- #}}",
             "percent": "i otrzymaj {discount} off",
             "price": "i otrzymaj {discount} off",
-            "fixed": "i płacić tylko {discount}"
+            "fixed": "i płacić tylko {discount}",
+            "fixed_both": {
+                "prefix": "and pay only",
+                "suffix": "each"
+            }
         },
-        "card_default_image_alt": "Obrazek już wkrótce"
+        "card_default_image_alt": "Obrazek już wkrótce",
+        "featured_promotions": {
+            "more_offers": "{count, plural, one {more offer} other {more offers}}"
+        }
     },
     "invoice": {
         "for_order": "{name} Faktura za zamówienie #{id}",
@@ -853,7 +882,9 @@
         "errorMessage": "Wystąpił problem z pobieraniem wyników. Spróbuj ponownie za kilka sekund.",
         "quick_search": {
             "input_label": "Szukaj na stronie",
-            "input_placeholder": "Szukaj w sklepie"
+            "input_label_semantic": "Szukaj na stronie",
+            "input_placeholder": "Szukaj w sklepie",
+            "input_placeholder_semantic": "Describe what you're looking for"
         },
         "results": {
             "form_label": "Słowo kluczowe wyszukiwania:",
@@ -867,6 +898,7 @@
         "faceted": {
             "selected": {
                 "title": "Ulepszaj przez",
+                "facet-label": "Zastosowane filtry",
                 "rating-label": "Oceniony {rating, plural, one {# Star} other {# Stars}} Lub więcej",
                 "no-filters": "Nie zastosowano żadnych filtrów",
                 "clear-all": "Wyczyść wszystko"
@@ -874,11 +906,14 @@
             "range": {
                 "update": "Aktualizacja",
                 "min-placeholder": "Min.",
-                "max-placeholder": "Max."
+                "max-placeholder": "Max.",
+                "min-description": "Wprowadź cenę minimalną, według której chcesz filtrować produkty",
+                "max-description": "Wprowadź cenę maksymalną, według której chcesz filtrować produkty"
             },
             "rating": {
                 "and-up": "& up"
             },
+            "label": "Poniższe pole tekstowe filtruje wyniki podczas wpisywania szukanego tekstu",
             "toggleSection": "Przełączanie sekcji filtrów {title}",
             "clear": "Jasne",
             "more": "Więcej",
@@ -998,7 +1033,7 @@
         "purpose": "Przeznaczenie",
         "functional_category": "Funkcjonalne",
         "functional_purpose": "Umożliwia korzystanie z rozszerzonych funkcji, takich jak filmy i czat na żywo. Jeśli nie wyrazisz na to zgody, niektóre lub wszystkie te funkcje mogą nie działać prawidłowo.",
-        "analytics_category": "Analytics",
+        "analytics_category": "Analityka",
         "analytics_purpose": "Dostarczanie informacji statystycznych na temat korzystania z witryny, np. analiza sieciowa, dzięki której możemy z czasem ulepszać tę witrynę.",
         "targeting_category": "Adresat:",
         "advertising_category": "Reklama",
