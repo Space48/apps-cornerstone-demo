@@ -4,6 +4,59 @@
 
 Stencil's Cornerstone theme is the building block for BigCommerce theme developers to get started quickly developing premium quality themes on the BigCommerce platform.
 
+## Demo repository and upstream updates
+
+`origin` is `Space48/apps-cornerstone-demo`. Configure the official source once
+with `git remote add upstream https://github.com/bigcommerce/cornerstone.git`,
+then fetch updates with `git fetch upstream --tags`.
+
+Keep `master` as the deployed integration branch: do not rebase or force-push it.
+Pushing or merging into `master` deploys the theme. Keep each upgrade on a
+versioned `demo/cornerstone-<version>` branch based on an official release tag,
+with the demo commits replayed on top. Merge upgrade PRs using **Create a merge
+commit**, not squash or rebase merging, to preserve upstream ancestry.
+
+The original demo fork shares ancestor `a9b47cd1` with BigCommerce and has ten
+project-only commits:
+
+| Purpose | Original commits |
+| --- | --- |
+| Deployment, configuration sync and CI | `8dd8010e`, `ce3cf714`, `01fa90f6`, `b88f4459`, `0afa0fd1`, `57a5ffdd` |
+| Hyper Search mounts | `8eb7cd14` |
+| Product size-guide query and tab | `cc3e4e86`, `17438a81`, `63664857` |
+
+`demo/cornerstone-6.22.0` rebases these changes onto tag `6.22.0`, dropping
+`b88f4459` because its Node 18 CI setting is obsolete. It also backports
+BigCommerce's Node 24 migration (`b82b2320`) and updates the demo workflows'
+checkout, setup-node and cache actions to v4, matching upstream CI.
+
+For the next upgrade, start from the previous patch branch, not from `master`.
+For example, when a `6.23.0` release tag exists:
+
+```sh
+git fetch upstream --tags
+git switch -c demo/cornerstone-6.23.0 demo/cornerstone-6.22.0
+git rebase --onto 6.23.0 6.22.0
+nvm install
+nvm use
+npm ci
+npx grunt check
+npx stencil bundle --name bundle
+```
+
+Resolve conflicts by retaining the demo integrations alongside upstream fixes.
+Drop backports only when the target release already provides them. Install
+`@bigcommerce/stencil-cli` separately if `stencil` is not available. Preview
+Hyper Search and products with and without size guides against the demo store
+before merging; a successful bundle cannot verify the external app or live
+metafield data.
+
+Make future demo changes on the latest patch branch (or a feature branch based
+on it), then merge them into `master` through a PR. Keep Page Builder
+configuration-sync changes on the patch branch too, so the next rebase retains
+them. Do not copy upstream commits individually, except for explicit backports
+such as the Node 24 migration above.
+
 ### Stencil Utils
 [Stencil-utils](https://github.com/bigcommerce/stencil-utils) is our supporting library for our events and remote interactions.
 
