@@ -12,8 +12,11 @@ then fetch updates with `git fetch upstream --tags`.
 
 Keep `master` as the deployed integration branch: do not rebase or force-push it.
 Pushing or merging into `master` deploys the theme. Keep each upgrade on a
-versioned `demo/cornerstone-<version>` branch based on an official release tag,
-with the demo commits replayed on top. Merge upgrade PRs using **Create a merge
+versioned `demo/patches-<version>` branch based on an official release tag,
+with the demo commits replayed on top. Create a separate
+`demo/cornerstone-<version>` PR branch from that patch stack and merge `master`
+into the PR branch to reconcile previously deployed history. Never merge
+`master` back into the clean patch branch. Merge upgrade PRs using **Create a merge
 commit**, not squash or rebase merging, to preserve upstream ancestry.
 
 The original demo fork shares ancestor `a9b47cd1` with BigCommerce and has ten
@@ -25,7 +28,7 @@ project-only commits:
 | Hyper Search mounts | `8eb7cd14` |
 | Product size-guide query and tab | `cc3e4e86`, `17438a81`, `63664857` |
 
-`demo/cornerstone-6.22.0` rebases these changes onto tag `6.22.0`, dropping
+`demo/patches-6.22.0` rebases these changes onto tag `6.22.0`, dropping
 `b88f4459` because its Node 18 CI setting is obsolete. It also backports
 BigCommerce's Node 24 migration (`b82b2320`) and updates the demo workflows'
 checkout, setup-node and cache actions to v4, matching upstream CI.
@@ -35,14 +38,24 @@ For example, when a `6.23.0` release tag exists:
 
 ```sh
 git fetch upstream --tags
-git switch -c demo/cornerstone-6.23.0 demo/cornerstone-6.22.0
+git switch -c demo/patches-6.23.0 demo/patches-6.22.0
 git rebase --onto 6.23.0 6.22.0
 nvm install
 nvm use
 npm ci
 npx grunt check
 npx stencil bundle --name bundle
+git push -u origin demo/patches-6.23.0
+git switch -c demo/cornerstone-6.23.0
+git fetch origin
+git merge origin/master
+git push -u origin demo/cornerstone-6.23.0
 ```
+
+Open the upgrade PR from `demo/cornerstone-6.23.0` into `master`. During the
+integration merge, retain the tested upgrade changes when they conflict with
+older versions already on `master`. Recheck the resolved changes before pushing.
+Keep both branch types on `origin`; do not delete the patch branch after merging.
 
 Resolve conflicts by retaining the demo integrations alongside upstream fixes.
 Drop backports only when the target release already provides them. Install
@@ -57,7 +70,8 @@ than breaking the product page. Correct the data through the size-guide app
 to restore the guide; do not try to repair malformed JSON in the template.
 
 Make future demo changes on the latest patch branch (or a feature branch based
-on it), then merge them into `master` through a PR. Keep Page Builder
+on it), then bring those commits into the integration branch for a PR to
+`master`. Keep Page Builder
 configuration-sync changes on the patch branch too, so the next rebase retains
 them. Do not copy upstream commits individually, except for explicit backports
 such as the Node 24 migration above.
